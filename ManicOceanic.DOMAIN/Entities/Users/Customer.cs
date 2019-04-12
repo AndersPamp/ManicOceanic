@@ -1,8 +1,10 @@
-﻿namespace ManicOceanic.DOMAIN.Entities
+﻿using System;
+
+namespace ManicOceanic.DOMAIN.Entities
 {
     public class Customer : User
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string SocialSecurityNumber { get; set; }

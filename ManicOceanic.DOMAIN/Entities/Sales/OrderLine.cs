@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ManicOceanic.DOMAIN.Entities.Products;
-using Microsoft.AspNetCore.ResponseCompression;
 
 namespace ManicOceanic.DOMAIN.Entities.Sales
 {
-  public class OrderLine
+    public class OrderLine
   {
     public int Id { get; set; }
     public Guid ProductId { get; set; }
