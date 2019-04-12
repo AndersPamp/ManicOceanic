@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ManicOceanic.DOMAIN.Entities.Products
+namespace ManicOceanic.DOMAIN.Dto
 {
-  public class Product
+  public class ProductDto
   {
     public Guid Id { get; set; }
     public Int ProductNumber { get; set; }
