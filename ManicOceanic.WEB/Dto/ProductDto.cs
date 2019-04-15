@@ -2,7 +2,7 @@
 using ManicOceanic.DOMAIN.Entities.Products;
 using System;
 
-namespace ManicOceanic.DOMAIN.Dto
+namespace ManicOceanic.WEB.Dto
 {
     public class ProductDto
   {

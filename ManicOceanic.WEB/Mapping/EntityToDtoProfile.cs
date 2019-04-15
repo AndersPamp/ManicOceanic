@@ -5,7 +5,7 @@ using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Entities.Sales;
 using ManicOceanic.DOMAIN.Extensions;
 
-namespace ManicOceanic.DOMAIN.Mapping
+namespace ManicOceanic.WEB.Mapping
 {
     public class EntityToDtoProfile : Profile
   {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 
-namespace ManicOceanic.DOMAIN.Extensions
+namespace ManicOceanic.WEB.Extensions
 {
     public static class EnumExtensions
     {

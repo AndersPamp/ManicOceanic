@@ -1,4 +1,4 @@
-﻿namespace ManicOceanic.DOMAIN.Dto
+﻿namespace ManicOceanic.WEB.Dto
 {
     public class CustomerDto
   {
