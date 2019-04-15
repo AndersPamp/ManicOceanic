@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace ManicOceanic.DOMAIN.Entities.Sales
 {
-  public enum EShipping
+    public enum EShipping
   {
     [Description("UPS")]
     Ups = 1,

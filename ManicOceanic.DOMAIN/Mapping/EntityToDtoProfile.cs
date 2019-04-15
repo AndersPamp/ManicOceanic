@@ -3,14 +3,10 @@ using ManicOceanic.DOMAIN.Dto;
 using ManicOceanic.DOMAIN.Entities;
 using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Entities.Sales;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ManicOceanic.DOMAIN.Mapping
 {
-  public class EntityToDtoProfile : Profile
+    public class EntityToDtoProfile : Profile
   {
     public EntityToDtoProfile()
     {
@@ -18,7 +14,7 @@ namespace ManicOceanic.DOMAIN.Mapping
       CreateMap<Customer, CustomerDto>();
       CreateMap<Order, OrderDto>();
       CreateMap<Product, ProductDto>().ForMember(src => src.UnitOfMeasure,
-        opt => opt.MapFrom(src => src.UnitOfMeasure.ToDescriptionString()));
+        opt => opt.MapFrom(src => src.UnitOfMeasure.ToString()));
     }
   }
 }

@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ManicOceanic.DOMAIN.Entities;
+﻿using ManicOceanic.DOMAIN.Entities;
 using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Entities.Sales;
+using Microsoft.EntityFrameworkCore;
 
 namespace ManicOceanic.API.Data
 {

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ManicOceanic.DOMAIN.Entities;
+using ManicOceanic.DOMAIN.Entities.Products;
+using System;
 
 namespace ManicOceanic.DOMAIN.Dto
 {
-  public class ProductDto
+    public class ProductDto
   {
     public Guid Id { get; set; }
-    public Int ProductNumber { get; set; }
+    public int ProductNumber { get; set; }
     public string Name { get; set; }
     public decimal Price { get; set; }
     public string ImageUrl { get; set; }

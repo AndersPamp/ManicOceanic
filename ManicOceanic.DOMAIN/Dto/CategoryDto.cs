@@ -1,11 +1,9 @@
-﻿using System;
+﻿using ManicOceanic.DOMAIN.Entities.Products;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ManicOceanic.DOMAIN.Dto
 {
-  public class CategoryDto
+    public class CategoryDto
   {
     public int Id { get; set; }
     public string Name { get; set; }

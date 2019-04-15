@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ManicOceanic.DOMAIN.Entities.Sales
 {
-  public class Order
+    public class Order
   {
     public Guid Id { get; set; }
     public Guid CustomerId { get; set; }
