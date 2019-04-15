@@ -11,6 +11,20 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\API_X\Controllers\" />
+    <Folder Include="Areas\API_X\Data\" />
+    <Folder Include="Areas\API_X\Models\" />
+    <Folder Include="Areas\API_X\Views\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\ManicOceanic.DOMAIN\ManicOceanic.DOMAIN.csproj" />
   </ItemGroup>
 
 </Project>
