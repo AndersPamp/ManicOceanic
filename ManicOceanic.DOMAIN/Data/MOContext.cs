@@ -4,7 +4,7 @@ using ManicOceanic.DOMAIN.Entities.Sales;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace ManicOceanic.WEB.Data
+namespace ManicOceanic.DOMAIN.Data
 {
   public class MOContext : DbContext
   {
