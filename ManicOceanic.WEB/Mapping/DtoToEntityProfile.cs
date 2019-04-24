@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using ManicOceanic.DOMAIN.Dto;
 using ManicOceanic.DOMAIN.Entities;
 using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Entities.Sales;
+using ManicOceanic.WEB.Dto;
 
 namespace ManicOceanic.WEB.Mapping
 {
