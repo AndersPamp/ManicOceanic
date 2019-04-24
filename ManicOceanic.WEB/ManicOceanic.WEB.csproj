@@ -20,7 +20,6 @@
     <Folder Include="Areas\API\Data\" />
     <Folder Include="Areas\API\Models\" />
     <Folder Include="Areas\API\Views\" />
-    <Folder Include="Data\" />
   </ItemGroup>
 
 
