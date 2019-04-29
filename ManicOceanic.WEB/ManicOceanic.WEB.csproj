@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -20,6 +20,10 @@
     <Folder Include="Areas\API\Data\" />
     <Folder Include="Areas\API\Models\" />
     <Folder Include="Areas\API\Views\" />
+<<<<<<< HEAD
+    
+=======
+>>>>>>> 996bba6407fd2a4d9b8e1026f81f7b7043d052a7
   </ItemGroup>
 
 

@@ -23,10 +23,24 @@ namespace ManicOceanic.DOMAIN.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Customer constraints
             modelBuilder.Entity<Customer>()
                 .HasAlternateKey(c => c.SocialSecurityNumber);
             modelBuilder.Entity<Customer>()
                 .HasAlternateKey(c => c.CustomerNumber);
+
+            // Administrator constraints
+            modelBuilder.Entity<Administrator>()
+                .HasAlternateKey(a => a.AdminName);
+
+            // User constraints 
+            modelBuilder.Entity<User>()
+                .HasAlternateKey(u => u.UserName);
+
+            // Order constraints
+            modelBuilder.Entity<Order>()
+                .HasAlternateKey(o => o.OrderNumber);
+
         }
 
     }
