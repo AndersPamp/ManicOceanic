@@ -28,14 +28,14 @@ namespace ManicOceanic.DOMAIN.Data
                 .HasAlternateKey(c => c.SocialSecurityNumber);
             modelBuilder.Entity<Customer>()
                 .HasAlternateKey(c => c.CustomerNumber);
+            modelBuilder.Entity<Customer>()
+                .HasAlternateKey(u => u.UserName);
 
             // Administrator constraints
             modelBuilder.Entity<Administrator>()
                 .HasAlternateKey(a => a.AdminName);
-
-            // User constraints 
-            modelBuilder.Entity<User>()
-                .HasAlternateKey(u => u.UserName);
+            modelBuilder.Entity<Administrator>()
+               .HasAlternateKey(u => u.UserName);
 
             // Order constraints
             modelBuilder.Entity<Order>()
