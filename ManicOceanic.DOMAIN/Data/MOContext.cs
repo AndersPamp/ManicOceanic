@@ -1,12 +1,13 @@
 ﻿using ManicOceanic.DOMAIN.Entities;
 using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Entities.Sales;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace ManicOceanic.DOMAIN.Data
 {
-  public class MOContext : DbContext
+  public class MOContext : IdentityDbContext<Customer>
   {
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Administrator> Administrators { get; set; }
@@ -16,10 +17,16 @@ namespace ManicOceanic.DOMAIN.Data
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
 
-    public MOContext(DbContextOptions<MOContext> options)
-        : base(options)
+    public MOContext(DbContextOptions<MOContext> options) : base(options)
     {
+    }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      modelBuilder.Entity<Customer>()
+        .HasAlternateKey(c => c.SocialSecurityNumber);
+      modelBuilder.Entity<Customer>()
+        .HasAlternateKey(c => c.CustomerNumber);
     }
   }
 }

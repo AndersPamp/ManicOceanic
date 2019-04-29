@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using ManicOceanic.DOMAIN.Dto;
+using ManicOceanic.DOMAIN;
 using ManicOceanic.DOMAIN.Entities;
 using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Entities.Sales;
-using ManicOceanic.DOMAIN.Extensions;
+using ManicOceanic.WEB.Dto;
+using ManicOceanic.WEB.Extensions;
 
 namespace ManicOceanic.WEB.Mapping
 {
