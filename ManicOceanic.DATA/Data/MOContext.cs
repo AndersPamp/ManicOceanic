@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace ManicOceanic.DOMAIN.Data
+namespace ManicOceanic.DATA.Data
 {
   public class MOContext : IdentityDbContext<Customer>
   {

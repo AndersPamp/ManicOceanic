@@ -1,13 +1,8 @@
-﻿using ManicOceanic.DOMAIN.Data;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ManicOceanic.DOMAIN.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 
 
 namespace ManicOceanic.DOMAIN
@@ -22,12 +17,12 @@ namespace ManicOceanic.DOMAIN
 
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<MOContext>(options => 
-      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+      //services.AddDbContext<MOContext>(options => 
+      //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-      services.AddDefaultIdentity<Customer>()
-        .AddDefaultUI(UIFramework.Bootstrap4)
-        .AddEntityFrameworkStores<MOContext>();
+      //services.AddDefaultIdentity<Customer>()
+      //  .AddDefaultUI(UIFramework.Bootstrap4)
+      //  .AddEntityFrameworkStores<MOContext>();
     }
     
 
@@ -48,12 +43,9 @@ namespace ManicOceanic.DOMAIN
   }
   public class IdentityConfig
   {
-    private readonly MOContext _context;
+    //private readonly MOContext _context;
 
-    public IdentityConfig(MOContext context)
-    {
 
-    }
   }
 }
 

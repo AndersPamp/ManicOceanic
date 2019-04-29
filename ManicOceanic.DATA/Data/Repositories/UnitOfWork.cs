@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using ManicOceanic.DOMAIN.Data;
+using ManicOceanic.DATA.Data;
 using ManicOceanic.DOMAIN.Repositories.Interfaces;
 
 namespace ManicOceanic.DATA.Data.Repositories
