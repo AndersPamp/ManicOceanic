@@ -31,12 +31,12 @@ namespace ManicOceanic.DOMAIN.Services
             return existingOrder;
         }
 
-        public async Task<Order> EditOrderAsync(int orderNumber, Order order)
+        public async Task<Order> UpdateOrderAsync(Order order)
         {
-            var existingOrder = await orderRepository.GetOrderByOrderNumberAsync(orderNumber);
+  
             orderRepository.UpdateOrder(order);
             await unitOfWork.SaveChangesAsync();
-            return existingOrder;
+            return order;
         }
     }
 }

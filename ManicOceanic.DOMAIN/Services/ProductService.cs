@@ -49,12 +49,12 @@ namespace ManicOceanic.DOMAIN.Services
 
         }
 
-        public async Task<Product> UpdateProductAsync(int productNumber, Product product)
+        public async Task<Product> UpdateProductAsync(Product product)
         {
-            var existingProduct = await productRepository.GetProductByProductNumberAsync(productNumber);
+
             productRepository.UpdateProduct(product);
             await unitOfWork.SaveChangesAsync();
-            return existingProduct;
+            return product;
         }
     }
 }

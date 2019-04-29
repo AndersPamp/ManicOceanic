@@ -49,9 +49,8 @@ namespace ManicOceanic.DOMAIN.Services
         }
 
       
-        public async Task<Category> UpdateCategoryAsync(int id, Category category)
+        public async Task<Category> UpdateCategoryAsync(Category category)
         {
-            var existingCategory = categoryRepository.FindCategoryByIdAsync(id);
             categoryRepository.UpdateCategory(category);
             await unitOfWork.SaveChangesAsync();
             return category;

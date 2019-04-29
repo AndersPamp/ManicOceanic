@@ -9,6 +9,6 @@ namespace ManicOceanic.DOMAIN.Services.Interfaces
 
         Task<Order> DeleteOrderAsync(int orderNumber);
 
-        Task<Order> EditOrderAsync(int orderNumber, Order order);
+        Task<Order> UpdateOrderAsync(Order order);
     }
 }

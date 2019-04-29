@@ -24,12 +24,12 @@ namespace ManicOceanic.DOMAIN.Services
             return customer;
         }
 
-        public async Task<Customer> UpdateCustomerProfileAsync(string socialSecurityNumber, Customer customer)
+        public async Task<Customer> UpdateCustomerProfileAsync(Customer customer)
         {
-            var existingCustomer = await customerRepository.GetCustomerBySocialSecurityNumber(socialSecurityNumber);
+
             customerRepository.UpdateCustomerProfile(customer);
             await unitOfWork.SaveChangesAsync();
-            return existingCustomer;
+            return customer;
         }
 
         public async Task<Customer> DeleteCustomerAsync(string socialSecurityNumber)

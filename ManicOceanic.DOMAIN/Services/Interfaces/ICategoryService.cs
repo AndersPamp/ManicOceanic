@@ -10,6 +10,6 @@ namespace ManicOceanic.DOMAIN.Services.Interfaces
         Task<Category> GetCategoryByCategoryIdAsync(int id);
         Task<Category> DeleteCategoryAsync(int id);
         Task<Category> CreateCategoryAsync(Category category);
-        Task<Category> UpdateCategoryAsync(int id, Category category);
+        Task<Category> UpdateCategoryAsync(Category category);
     }
 }
