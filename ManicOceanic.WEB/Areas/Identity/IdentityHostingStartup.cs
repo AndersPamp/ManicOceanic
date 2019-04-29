@@ -1,9 +1,6 @@
-﻿using System;
-using ManicOceanic.DOMAIN.Data.MOContext;
-using ManicOceanic.DOMAIN.Entities;
+﻿using ManicOceanic.DOMAIN.Entities;
+using ManicOceanic.WEB.Areas.Identity.Data;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

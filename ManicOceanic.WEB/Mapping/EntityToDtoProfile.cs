@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ManicOceanic.DOMAIN;
 using ManicOceanic.DOMAIN.Entities;
 using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Entities.Sales;

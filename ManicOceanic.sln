@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManicOceanic.WEB", "ManicOc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManicOceanic.DOMAIN", "ManicOceanic.DOMAIN\ManicOceanic.DOMAIN.csproj", "{7F62B08B-F31B-43CA-AFE2-164FC92E7712}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManicOceanic.DATA", "ManicOceanic.DATA\ManicOceanic.DATA.csproj", "{3D9B6747-4E7A-46D6-948E-F6EC7000A113}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7F62B08B-F31B-43CA-AFE2-164FC92E7712}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F62B08B-F31B-43CA-AFE2-164FC92E7712}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F62B08B-F31B-43CA-AFE2-164FC92E7712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D9B6747-4E7A-46D6-948E-F6EC7000A113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D9B6747-4E7A-46D6-948E-F6EC7000A113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D9B6747-4E7A-46D6-948E-F6EC7000A113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D9B6747-4E7A-46D6-948E-F6EC7000A113}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ManicOceanic.DOMAIN.Data.MOContext
+namespace ManicOceanic.WEB.Areas.Identity.Data
 {
     public class cs : IdentityDbContext<Customer>
     {

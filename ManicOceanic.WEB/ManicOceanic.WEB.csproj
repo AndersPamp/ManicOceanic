@@ -7,16 +7,12 @@
 
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.2" />
-    <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.2" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.0.1" />
-    <PackageReference Include="Microsoft.Owin.Security" Version="4.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
@@ -29,6 +25,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\ManicOceanic.DATA\ManicOceanic.DATA.csproj" />
     <ProjectReference Include="..\ManicOceanic.DOMAIN\ManicOceanic.DOMAIN.csproj" />
   </ItemGroup>
 
