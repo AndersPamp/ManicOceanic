@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ManicOceanic.DOMAIN;
 using ManicOceanic.DOMAIN.Entities;
 using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Entities.Sales;
@@ -16,6 +17,6 @@ namespace ManicOceanic.WEB.Mapping
       CreateMap<OrderDto, Order>();
       CreateMap<Product, ProductDto>().ForMember(src => src.UnitOfMeasure,
           opt => opt.MapFrom(src => src.UnitOfMeasure.ToDescriptionString()));
-        }
+     }
   }
-}
+ }
