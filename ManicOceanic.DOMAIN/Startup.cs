@@ -3,18 +3,14 @@ using ManicOceanic.DOMAIN.Repositories;
 using ManicOceanic.DOMAIN.Repositories.Interfaces;
 using ManicOceanic.DOMAIN.Services;
 using ManicOceanic.DOMAIN.Services.Interfaces;
-﻿using ManicOceanic.DOMAIN.Data;
+using ManicOceanic.DOMAIN.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 using Owin;
-using System;
 using ManicOceanic.DOMAIN.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -22,7 +18,7 @@ using Microsoft.AspNetCore.Identity.UI;
 
 namespace ManicOceanic.DOMAIN
 {
-  public class Startup
+    public class Startup
   {
     public IConfiguration Configuration { get; }
     public Startup(IConfiguration configuration)
