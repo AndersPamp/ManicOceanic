@@ -47,6 +47,28 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [PersonalData]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [PersonalData]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [PersonalData]
+            [Display(Name = "Street Address")]
+            public string StreetAddress { get; set; }
+
+            [MaxLength(5 , ErrorMessage ="Max 5 Digits")]
+            [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+            [Display(Name = "ZIP Code")]
+            public string ZIPCode { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "City")]
+            public string City { get; set; }
+
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -60,13 +82,24 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
+            var streetAddress = user.StreetAddress;
+            var zipCode = user.ZipCode;
+            var city = user.City;
 
             Username = userName;
 
             Input = new InputModel
             {
                 Email = email,
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                //FirstName = firstName,
+                LastName = lastName,
+                StreetAddress = streetAddress,
+                ZIPCode = zipCode,
+                City = city
+
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
@@ -108,6 +141,19 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
+
+            var firstName = user.FirstName;
+            if (Input.FirstName != firstName)
+            {
+                user.FirstName = Input.FirstName;
+                //var setFirstNameResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                //if (!setFirstNameResult.Succeeded)
+                //{
+                //    var userId = await _userManager.GetUserIdAsync(user);
+                //    throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
+                //}
+            }
+
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

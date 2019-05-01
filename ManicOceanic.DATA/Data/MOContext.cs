@@ -41,6 +41,9 @@ namespace ManicOceanic.DATA.Data
             // Order constraints
             modelBuilder.Entity<Order>()
                 .HasAlternateKey(o => o.OrderNumber);
+
+            base.OnModelCreating(modelBuilder);
+
         }
     }
 }
