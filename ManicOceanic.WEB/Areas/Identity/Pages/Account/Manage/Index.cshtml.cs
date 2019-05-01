@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using ManicOceanic.DOMAIN.Entities;
+﻿using ManicOceanic.DOMAIN.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace ManicOceanic.WEB.Areas.Identity.Pages.Account.Manage
 {
@@ -49,10 +47,12 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
 
             [PersonalData]
+            [DataType(DataType.Text)]                     //It does take numbers anyway ... don't know why!
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
             [PersonalData]
+            [DataType(DataType.Text)]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
@@ -94,7 +94,7 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account.Manage
             {
                 Email = email,
                 PhoneNumber = phoneNumber,
-                //FirstName = firstName,
+                FirstName = firstName,
                 LastName = lastName,
                 StreetAddress = streetAddress,
                 ZIPCode = zipCode,
@@ -146,14 +146,71 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account.Manage
             if (Input.FirstName != firstName)
             {
                 user.FirstName = Input.FirstName;
-                //var setFirstNameResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                //if (!setFirstNameResult.Succeeded)
-                //{
-                //    var userId = await _userManager.GetUserIdAsync(user);
-                //    throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
-                //}
+
+                var setFirstNameResult = await _userManager.UpdateAsync(user);
+
+                if (!setFirstNameResult.Succeeded)
+                {
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    throw new InvalidOperationException($"Unexpected error occurred setting first name for user with ID '{userId}'.");
+                }
             }
 
+            var lastName = user.LastName;
+            if (Input.LastName != lastName)
+            {
+                user.LastName = Input.LastName;
+
+                var setLastNameResult = await _userManager.UpdateAsync(user);
+
+                if (!setLastNameResult.Succeeded)
+                {
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    throw new InvalidOperationException($"Unexpected error occurred setting last name for user with ID '{userId}'.");
+                }
+            }
+
+            var streetAddress = user.StreetAddress;
+            if (Input.LastName != streetAddress)
+            {
+                user.StreetAddress = Input.StreetAddress;
+
+                var setStreetAddressResult = await _userManager.UpdateAsync(user);
+
+                if (!setStreetAddressResult.Succeeded)
+                {
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    throw new InvalidOperationException($"Unexpected error occurred setting street address for user with ID '{userId}'.");
+                }
+            }
+
+            var zipCode = user.ZipCode;
+            if (Input.LastName != zipCode)
+            {
+                user.ZipCode = Input.ZIPCode;
+
+                var setZipCodeResult = await _userManager.UpdateAsync(user);
+
+                if (!setZipCodeResult.Succeeded)
+                {
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    throw new InvalidOperationException($"Unexpected error occurred setting zip code for user with ID '{userId}'.");
+                }
+            }
+
+            var city = user.City;
+            if (Input.City != city)
+            {
+                user.City = Input.City;
+
+                var setCityResult = await _userManager.UpdateAsync(user);
+
+                if (!setCityResult.Succeeded)
+                {
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    throw new InvalidOperationException($"Unexpected error occurred setting city for user with ID '{userId}'.");
+                }
+            }
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
