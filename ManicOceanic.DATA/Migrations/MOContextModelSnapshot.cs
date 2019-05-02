@@ -4,16 +4,14 @@ using ManicOceanic.DATA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ManicOceanic.DOMAIN.Migrations
+namespace ManicOceanic.DATA.Migrations
 {
     [DbContext(typeof(MOContext))]
-    [Migration("20190430090347_Id-Removed")]
-    partial class IdRemoved
+    partial class MOContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
