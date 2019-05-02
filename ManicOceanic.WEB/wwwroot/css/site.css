@@ -10,7 +10,11 @@ a.navbar-brand {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    
+}
+h1 {
+    font-family: 'Acme', sans-serif;
 }
 @media (min-width: 768px) {
   html {

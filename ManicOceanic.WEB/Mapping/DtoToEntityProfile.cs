@@ -3,6 +3,7 @@ using ManicOceanic.DOMAIN.Entities;
 using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Entities.Sales;
 using ManicOceanic.WEB.Dto;
+using ManicOceanic.WEB.Extensions;
 
 namespace ManicOceanic.WEB.Mapping
 {
@@ -13,7 +14,8 @@ namespace ManicOceanic.WEB.Mapping
       CreateMap<CategoryDto, Category>();
       CreateMap<CustomerDto, Customer>();
       CreateMap<OrderDto, Order>();
-      CreateMap<ProductDto, Product>();
-    }
+      CreateMap<Product, ProductDto>().ForMember(src => src.UnitOfMeasure,
+          opt => opt.MapFrom(src => src.UnitOfMeasure.ToDescriptionString()));
+     }
   }
-}
+ }
