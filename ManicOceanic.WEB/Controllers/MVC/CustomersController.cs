@@ -6,89 +6,90 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ManicOceanic.DOMAIN.Data;
-using ManicOceanic.DOMAIN.Entities.Products;
+using ManicOceanic.DOMAIN.Entities;
 
 namespace ManicOceanic.WEB.Controllers.MVC
 {
-    public class CategoriesController : Controller
+    public class CustomersController : Controller
     {
         private readonly MOContext _context;
 
-        public CategoriesController(MOContext context)
+        public CustomersController(MOContext context)
         {
             _context = context;
         }
 
-        // GET: Categories
+        // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            return View(await _context.Customers.ToListAsync());
         }
 
-        // GET: Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Customers/Details/5
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var customer = await _context.Customers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(customer);
         }
 
-        // GET: Categories/Create
+        // GET: Customers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Customers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,SocialSecurityNumber,StreetAddress,ZipCode,City,PhoneNumber,EmailAddress,CustomerNumber,UserName,Password,IsLoggedIn")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                customer.Id = Guid.NewGuid();
+                _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(customer);
         }
 
-        // GET: Categories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Customers/Edit/5
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var customer = await _context.Customers.FindAsync(id);
+            if (customer == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(customer);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Customers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,FirstName,LastName,SocialSecurityNumber,StreetAddress,ZipCode,City,PhoneNumber,EmailAddress,CustomerNumber,UserName,Password,IsLoggedIn")] Customer customer)
         {
-            if (id != category.Id)
+            if (id != customer.Id)
             {
                 return NotFound();
             }
@@ -97,12 +98,12 @@ namespace ManicOceanic.WEB.Controllers.MVC
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!CustomerExists(customer.Id))
                     {
                         return NotFound();
                     }
@@ -113,41 +114,41 @@ namespace ManicOceanic.WEB.Controllers.MVC
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(customer);
         }
 
-        // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Customers/Delete/5
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var customer = await _context.Customers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(customer);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
+            var customer = await _context.Customers.FindAsync(id);
+            _context.Customers.Remove(customer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool CustomerExists(Guid id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _context.Customers.Any(e => e.Id == id);
         }
     }
 }

@@ -1,0 +1,169 @@
+[33mcommit a0b7fa08e19d8e58123575e2959055e563ce198d[m
+Author: ernestonr1 <ernstras@gmail.com>
+Date:   Wed Apr 24 21:12:02 2019 +0200
+
+    AddCategoryDtoMvcController
+
+[33mcommit bfd3acb4f29e37b8e6d75ec772afeea0959b839b[m
+Author: Jonathanmoller <43174289+Jonathanmoller@users.noreply.github.com>
+Date:   Wed Apr 24 12:53:51 2019 +0200
+
+    Remove faulty using statement
+
+[33mcommit 8dec911e995667db1f4ec1634374a23dbc8c9326[m
+Merge: a9152ae 996bba6
+Author: Jonathanmoller <43174289+Jonathanmoller@users.noreply.github.com>
+Date:   Wed Apr 24 12:35:02 2019 +0200
+
+    Merge pull request #1 from Jonathanmoller/Azure_Database
+    
+    Adding Azure Database functionality.
+
+[33mcommit 996bba6407fd2a4d9b8e1026f81f7b7043d052a7[m
+Merge: 7ed5006 a9152ae
+Author: Jonathanmoller <43174289+Jonathanmoller@users.noreply.github.com>
+Date:   Wed Apr 24 12:34:16 2019 +0200
+
+    Merge branch 'Develop' into Azure_Database
+
+[33mcommit 7ed500682a5f10942be20a21d5b74c68eea603c1[m
+Author: Lars Bylund <lars.bylund@hotmail.com>
+Date:   Wed Apr 24 11:11:51 2019 +0200
+
+    Delete unused files
+
+[33mcommit 597805884e4d6eff87f471dd8b499823acd5343b[m
+Author: Lars Bylund <lars.bylund@hotmail.com>
+Date:   Wed Apr 24 10:38:39 2019 +0200
+
+    AddConnectionToAzureDatabase
+
+[33mcommit a9152aec5dccb89a796a7055ce3dbd38cb5b5c1d[m
+Author: Jonathanmoller <43174289+Jonathanmoller@users.noreply.github.com>
+Date:   Tue Apr 16 14:20:18 2019 +0200
+
+    New greeting message
+
+[33mcommit 941771a8a1dccf8ff91a2aeee25bd1e2f83e32e9[m
+Author: Jonathanmoller <43174289+Jonathanmoller@users.noreply.github.com>
+Date:   Tue Apr 16 10:32:07 2019 +0200
+
+    Delete API-Project, fixed using statements
+
+[33mcommit 9ee2cf5e5dbf9be96bde071ad6e795326bcb1d67[m
+Author: Jonathanmoller <43174289+Jonathanmoller@users.noreply.github.com>
+Date:   Mon Apr 15 15:00:54 2019 +0200
+
+    Bugfix2.0
+
+[33mcommit bdd1459c413b9c46c94857478db8c0513f577201[m
+Author: AndersPamp <anders_pamp@hotmail.com>
+Date:   Mon Apr 15 14:31:02 2019 +0200
+
+    Move Datafolder to Domainproject
+
+[33mcommit 8acdb1812f379d601944c65ff3588041aaf8e2e8[m
+Author: AndersPamp <anders_pamp@hotmail.com>
+Date:   Mon Apr 15 13:48:59 2019 +0200
+
+    Rearrange codestructure after deletion of API-project
+
+[33mcommit 28a43a875855391747e940b9b7df198605db6eaa[m
+Author: AndersPamp <anders_pamp@hotmail.com>
+Date:   Mon Apr 15 13:41:29 2019 +0200
+
+    Delete api-project and create area for api in web-project
+
+[33mcommit 6d39463873fc2836fabafcc51075aeacafbfd106[m
+Author: Jonathanmoller <43174289+Jonathanmoller@users.noreply.github.com>
+Date:   Mon Apr 15 10:55:56 2019 +0200
+
+    AddEnumExtensions
+
+[33mcommit 124c86e086b5534025537234a18f603d3407f8d3[m
+Author: Jonathanmoller <43174289+Jonathanmoller@users.noreply.github.com>
+Date:   Mon Apr 15 10:29:05 2019 +0200
+
+    Bugfix
+
+[33mcommit 1fdc4046e64c4ed15d918a854f91549fdd8020c8[m
+Merge: bd8ca51 30d54da
+Author: Jonathanmoller <43174289+Jonathanmoller@users.noreply.github.com>
+Date:   Sun Apr 14 15:08:30 2019 +0200
+
+    Merge Develop with Database01
+
+[33mcommit bd8ca51631a42bc1b84e14b1e8e3171d80742a9f[m
+Merge: 01762f1 96f4a99
+Author: Anders Pamp <anders.pamp@learnet.se>
+Date:   Fri Apr 12 12:25:19 2019 +0000
+
+    Merged PR 3: Add dto's and mapping
+    
+    Add dto's and mapping
+
+[33mcommit 30d54daa13a267a4a713d516787ff8a5d715cec9[m
+Author: Jonathanmoller <43174289+Jonathanmoller@users.noreply.github.com>
+Date:   Fri Apr 12 14:24:58 2019 +0200
+
+    AddDatabase
+
+[33mcommit 96f4a998f32c4883b8f92fe6e6dd8b924f0f7a9e[m
+Author: AndersPamp <anders_pamp@hotmail.com>
+Date:   Fri Apr 12 14:22:38 2019 +0200
+
+    Add dto's and mapping
+
+[33mcommit 01762f11cd11b63774c213097895f619003e8676[m
+Merge: 00cfe1f 59bc84f
+Author: Anders Pamp <anders.pamp@learnet.se>
+Date:   Fri Apr 12 10:26:26 2019 +0000
+
+    Merged PR 2: move EUnitOfMeasure
+    
+    move EUnitOfMeasure
+
+[33mcommit 59bc84f6ab8a144664dd436dfc73416d20fe7441[m
+Author: AndersPamp <anders_pamp@hotmail.com>
+Date:   Fri Apr 12 12:26:00 2019 +0200
+
+    move EUnitOfMeasure
+
+[33mcommit 00cfe1f49972fe2f4113934cb049dbed1efb628d[m
+Merge: 8b67142 7a3939a
+Author: Jonathan Möller <jonathan.moller@learnet.se>
+Date:   Fri Apr 12 10:19:16 2019 +0000
+
+    Merged PR 1: Domain Entities
+    
+    Add all entities according to ClassDiagram.
+
+[33mcommit 7a3939a5c249148c5c53c3549ab5e78db88a969c[m
+Author: Jonathanmoller <43174289+Jonathanmoller@users.noreply.github.com>
+Date:   Fri Apr 12 12:14:45 2019 +0200
+
+    Add Entities
+
+[33mcommit e45dd5342ad5e929fc24952e38ec759310ce6998[m
+Author: Lars Bylund <lars.bylund@hotmail.com>
+Date:   Fri Apr 12 11:59:09 2019 +0200
+
+    AddEntities
+
+[33mcommit 8b67142ccedfd24dedd734cb361f64e6ad9a3417[m
+Author: AndersPamp <anders_pamp@hotmail.com>
+Date:   Mon Apr 8 11:33:13 2019 +0200
+
+    Initial commit
+
+[33mcommit 9dcb1b7fdb059a4a4e40adffa9b93315b7031f1b[m
+Author: AndersPamp <anders_pamp@hotmail.com>
+Date:   Mon Apr 8 11:30:48 2019 +0200
+
+    Add project files.
+
+[33mcommit fbbf930e8523cdd55c491861b847bc46e6ad0a99[m
+Author: AndersPamp <anders_pamp@hotmail.com>
+Date:   Mon Apr 8 11:30:41 2019 +0200
+
+    Add .gitignore and .gitattributes.

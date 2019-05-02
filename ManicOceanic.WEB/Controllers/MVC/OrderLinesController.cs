@@ -6,26 +6,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ManicOceanic.DOMAIN.Data;
-using ManicOceanic.DOMAIN.Entities.Products;
+using ManicOceanic.DOMAIN.Entities.Sales;
 
 namespace ManicOceanic.WEB.Controllers.MVC
 {
-    public class CategoriesController : Controller
+    public class OrderLinesController : Controller
     {
         private readonly MOContext _context;
 
-        public CategoriesController(MOContext context)
+        public OrderLinesController(MOContext context)
         {
             _context = context;
         }
 
-        // GET: Categories
+        // GET: OrderLines
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            var mOContext = _context.OrderLines.Include(o => o.Product);
+            return View(await mOContext.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // GET: OrderLines/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,42 @@ namespace ManicOceanic.WEB.Controllers.MVC
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var orderLine = await _context.OrderLines
+                .Include(o => o.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (orderLine == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(orderLine);
         }
 
-        // GET: Categories/Create
+        // GET: OrderLines/Create
         public IActionResult Create()
         {
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: OrderLines/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,ProductId,Quantity,OrderId,UnitCost,Subtotal")] OrderLine orderLine)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                _context.Add(orderLine);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", orderLine.ProductId);
+            return View(orderLine);
         }
 
-        // GET: Categories/Edit/5
+        // GET: OrderLines/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +77,23 @@ namespace ManicOceanic.WEB.Controllers.MVC
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var orderLine = await _context.OrderLines.FindAsync(id);
+            if (orderLine == null)
             {
                 return NotFound();
             }
-            return View(category);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", orderLine.ProductId);
+            return View(orderLine);
         }
 
-        // POST: Categories/Edit/5
+        // POST: OrderLines/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductId,Quantity,OrderId,UnitCost,Subtotal")] OrderLine orderLine)
         {
-            if (id != category.Id)
+            if (id != orderLine.Id)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace ManicOceanic.WEB.Controllers.MVC
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(orderLine);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!OrderLineExists(orderLine.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +118,11 @@ namespace ManicOceanic.WEB.Controllers.MVC
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", orderLine.ProductId);
+            return View(orderLine);
         }
 
-        // GET: Categories/Delete/5
+        // GET: OrderLines/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +130,31 @@ namespace ManicOceanic.WEB.Controllers.MVC
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var orderLine = await _context.OrderLines
+                .Include(o => o.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (orderLine == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(orderLine);
         }
 
-        // POST: Categories/Delete/5
+        // POST: OrderLines/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
+            var orderLine = await _context.OrderLines.FindAsync(id);
+            _context.OrderLines.Remove(orderLine);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool OrderLineExists(int id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _context.OrderLines.Any(e => e.Id == id);
         }
     }
 }

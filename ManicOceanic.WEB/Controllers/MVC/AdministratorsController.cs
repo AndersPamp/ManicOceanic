@@ -6,26 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ManicOceanic.DOMAIN.Data;
-using ManicOceanic.DOMAIN.Entities.Products;
+using ManicOceanic.DOMAIN.Entities;
 
 namespace ManicOceanic.WEB.Controllers.MVC
 {
-    public class CategoriesController : Controller
+    public class AdministratorsController : Controller
     {
         private readonly MOContext _context;
 
-        public CategoriesController(MOContext context)
+        public AdministratorsController(MOContext context)
         {
             _context = context;
         }
 
-        // GET: Categories
+        // GET: Administrators
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            return View(await _context.Administrators.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // GET: Administrators/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace ManicOceanic.WEB.Controllers.MVC
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var administrator = await _context.Administrators
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (administrator == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(administrator);
         }
 
-        // GET: Categories/Create
+        // GET: Administrators/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Administrators/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,AdminName,UserName,Password,IsLoggedIn")] Administrator administrator)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                _context.Add(administrator);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(administrator);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Administrators/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace ManicOceanic.WEB.Controllers.MVC
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var administrator = await _context.Administrators.FindAsync(id);
+            if (administrator == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(administrator);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Administrators/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,AdminName,UserName,Password,IsLoggedIn")] Administrator administrator)
         {
-            if (id != category.Id)
+            if (id != administrator.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace ManicOceanic.WEB.Controllers.MVC
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(administrator);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!AdministratorExists(administrator.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace ManicOceanic.WEB.Controllers.MVC
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(administrator);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Administrators/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace ManicOceanic.WEB.Controllers.MVC
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var administrator = await _context.Administrators
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (administrator == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(administrator);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Administrators/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
+            var administrator = await _context.Administrators.FindAsync(id);
+            _context.Administrators.Remove(administrator);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool AdministratorExists(int id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _context.Administrators.Any(e => e.Id == id);
         }
     }
 }
