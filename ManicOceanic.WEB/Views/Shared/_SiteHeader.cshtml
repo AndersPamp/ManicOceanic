@@ -28,13 +28,9 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Create Account</a>
-
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-
+                            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                                <partial name="_LoginPartial" />
+                            </div>
                         </li>
 
                         <li class="nav-item">
