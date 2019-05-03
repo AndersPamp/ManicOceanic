@@ -31,6 +31,7 @@ namespace ManicOceanic.DATA.Data
                 .HasAlternateKey(c => c.CustomerNumber);
             modelBuilder.Entity<Customer>()
                 .HasAlternateKey(u => u.UserName);
+            
 
             // Administrator constraints
             modelBuilder.Entity<Administrator>()
@@ -41,6 +42,12 @@ namespace ManicOceanic.DATA.Data
             // Order constraints
             modelBuilder.Entity<Order>()
                 .HasAlternateKey(o => o.OrderNumber);
+
+            
+
+
+            base.OnModelCreating(modelBuilder);
+
         }
     }
 }

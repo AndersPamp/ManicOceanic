@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using ManicOceanic.DATA.Data;
+using System.Linq;
 
 namespace ManicOceanic.WEB.Areas.Identity.Pages.Account
 {
@@ -33,6 +35,7 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account
             _emailSender = emailSender;
         }
 
+
         [BindProperty]
         public InputModel Input { get; set; }
 
@@ -55,6 +58,11 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            
+            [Display(Name = "Social Security Number")]
+            public string SocialSecurityNumber { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -67,7 +75,22 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new Customer { UserName = Input.Email, Email = Input.Email };
+                
+                var x = _userManager.Users;
+                var maxValue = 0;
+
+                if (x.Count() == 0)
+                {
+                    maxValue = 0;
+                }
+                else
+                {
+                    maxValue = x.Max(c => c.CustomerNumber);
+                }
+
+                
+
+                var user = new Customer { UserName = Input.Email, Email = Input.Email,SocialSecurityNumber = Input.SocialSecurityNumber ,CustomerNumber = maxValue+1};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
