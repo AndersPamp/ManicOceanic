@@ -43,20 +43,24 @@ namespace ManicOceanic.DATA
       services.AddScoped<IProductRepository, ProductRepository>();
       services.AddScoped<ICustomerRepository, CustomerRepository>();
       services.AddScoped<IOrderRepository, OrderRepository>();
-    }
+
+      var startup = new DOMAIN.Startup(Configuration);
+
+      startup.ConfigureServices(services);
+        }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-    {
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-      }
+    //public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    //{
+    //  if (env.IsDevelopment())
+    //  {
+    //    app.UseDeveloperExceptionPage();
+    //  }
 
-      app.Run(async (context) =>
-      {
-        await context.Response.WriteAsync("Hello World!");
-      });
-    }
+    //  app.Run(async (context) =>
+    //  {
+    //    await context.Response.WriteAsync("Hello World!");
+    //  });
+    //}
   }
 }

@@ -33,19 +33,13 @@ namespace ManicOceanic.DOMAIN
         app.UseDeveloperExceptionPage();
       }
 
-      app.Run(async (context) =>
-      {
-        await context.Response.WriteAsync("Hello World!");
-      });
+      //app.Run(async (context) =>
+      //{
+      //  await context.Response.WriteAsync("Hello World!");
+      //});
       app.UseAuthentication();
       app.UseStaticFiles();
     }
-  }
-  public class IdentityConfig
-  {
-    //private readonly MOContext _context;
-
-
   }
 }
 
