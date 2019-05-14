@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +8,6 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using ManicOceanic.DATA.Data;
 using System.Linq;
 
 namespace ManicOceanic.WEB.Areas.Identity.Pages.Account
@@ -87,8 +84,6 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account
                 {
                     maxValue = x.Max(c => c.CustomerNumber);
                 }
-
-                
 
                 var user = new Customer { UserName = Input.Email, Email = Input.Email,SocialSecurityNumber = Input.SocialSecurityNumber ,CustomerNumber = maxValue+1};
                 var result = await _userManager.CreateAsync(user, Input.Password);

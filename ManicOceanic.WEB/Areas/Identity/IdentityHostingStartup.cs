@@ -17,8 +17,8 @@ namespace ManicOceanic.WEB.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("csConnection")));
 
-                services.AddDefaultIdentity<Customer>()
-                    .AddEntityFrameworkStores<cs>();
+                //services.AddDefaultIdentity<Customer>()
+                //    .AddEntityFrameworkStores<cs>();
             });
         }
     }

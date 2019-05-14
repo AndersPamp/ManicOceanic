@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ManicOceanic.DATA.Data;
 using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;

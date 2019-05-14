@@ -5,10 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
+using ManicOceanic.DATA.Data;
+using Microsoft.EntityFrameworkCore;
+using ManicOceanic.DOMAIN.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
+using ManicOceanic.DOMAIN.Services.Interfaces;
+using ManicOceanic.DOMAIN.Services;
+using ManicOceanic.DOMAIN.Repositories.Interfaces;
+using ManicOceanic.DATA.Data.Repositories;
 
 namespace ManicOceanic.WEB
 {
-  public class Startup
+    public class Startup
   {
     public Startup(IConfiguration configuration)
     {
@@ -29,7 +38,24 @@ namespace ManicOceanic.WEB
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
       services.AddAutoMapper();
-    }
+
+      services.AddDbContext<MOContext>(options =>
+          options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+      services.AddDefaultIdentity<Customer>()
+          .AddDefaultUI(UIFramework.Bootstrap4)
+          .AddEntityFrameworkStores<MOContext>();
+
+      services.AddScoped<IOrderService, OrderService>();
+      services.AddScoped<IProductService, ProductService>();
+      services.AddScoped<ICustomerService, CustomerService>();
+      services.AddScoped<ICategoryService, CategoryService>();
+      services.AddScoped<IUnitOfWork, UnitOfWork>();
+      services.AddScoped<ICategoryRepository, CategoryRepository>();
+      services.AddScoped<IProductRepository, ProductRepository>();
+      services.AddScoped<ICustomerRepository, CustomerRepository>();
+      services.AddScoped<IOrderRepository, OrderRepository>();
+        }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
