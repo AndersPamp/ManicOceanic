@@ -1,59 +1,31 @@
-﻿
+﻿@model IList<ManicOceanic.DOMAIN.Entities.Products.Product>
 @{
     ViewData["Title"] = "FishFood";
 }
 
 <h1>FishFood</h1>
 
-<div class="container">
-    <div class="row">
+<style>
+    .product-grid {
+        display: grid;
+        grid: auto / repeat(4, 1fr);
+        grid-gap: 40px 20px;
+    }
 
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/0909adeb47281dea57b652f0fc64d4eb7a037de8_320x320_fwb_i.jpg " class="img-fluid" alt="Betta">
-            </a>
+    .grid-item {
+        justify-self: center;
+        align-self: center;
+        text-align: center;
+    }
+</style>
+
+<div class="product-grid">
+    @foreach (var product in Model)
+    {
+        <div class="grid-item">
+            <img src="@product.ImageUrl" width="200px" />
+            <div>@product.Name</div>
+            <div>@product.Price kr</div>
         </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/3c4dd0cd3cf2bcbfca2089483cf1e0548a664842_320x320_fwb_i.png " class="img-fluid" alt="Cichlid Colour">
-            </a>
-        </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/0b96cb25e7ec8348fbd498efc063aa2bde1f0c78_320x320_fwb_i.jpg" class="img-fluid" alt="Cichlid XL">
-            </a>
-        </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/17e4939a4e2bc7d12a0f3b9b32f9dfb0cd8f8ead_320x320_fwb_i.jpg " class="img-fluid" alt="Flake Menu">
-            </a>
-        </div>
-    </div>
+    }
 </div>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/fe7ab23667414e6072cb48664b3ea0e27abdb02c_320x320_fwb_i.jpg" class="img-fluid" alt="Betta Bio Gold">
-            </a>
-        </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/d98f26ec5a73c9f32395f284daf05b0550153f0c_320x320_fwb_i.jpg " class="img-fluid" alt="Cichlid Excel">
-            </a>
-        </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/998261e1934ff80e6dde64cadb9972be0edf9d39_320x320_fwb_i.jpg" class="img-fluid" alt="Cichlid Gold">
-            </a>
-        </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/f0fd450203ea6b1e72e49c5aed9bc489d3d14882_320x320_fwb_i.jpg " class="img-fluid" alt="Cichlid Spirulina">
-            </a>
-        </div>
-    </div>
-</div>
-

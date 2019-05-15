@@ -171,7 +171,7 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account.Manage
             }
 
             var streetAddress = user.StreetAddress;
-            if (Input.LastName != streetAddress)
+            if (Input.StreetAddress != streetAddress)
             {
                 user.StreetAddress = Input.StreetAddress;
 
@@ -185,7 +185,7 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account.Manage
             }
 
             var zipCode = user.ZipCode;
-            if (Input.LastName != zipCode)
+            if (Input.ZIPCode != zipCode)
             {
                 user.ZipCode = Input.ZIPCode;
 
