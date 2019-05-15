@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ManicOceanic.WEB.Models;
+using ManicOceanic.DATA.Data;
 
 namespace ManicOceanic.WEB.Controllers
 {
@@ -12,6 +13,7 @@ namespace ManicOceanic.WEB.Controllers
   {
     public IActionResult Index()
     {
+        
       return View();
     }
 
