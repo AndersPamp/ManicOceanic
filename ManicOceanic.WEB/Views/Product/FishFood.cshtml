@@ -1,4 +1,10 @@
-﻿@model IList<ManicOceanic.DOMAIN.Entities.Products.Product>
+﻿@using ManicOceanic.WEB.Models;
+@*@using PagedList;*@
+
+@model IList<ManicOceanic.DOMAIN.Entities.Products.Product>
+
+@using Microsoft.AspNetCore.Http
+
 @{
     ViewData["Title"] = "FishFood";
 }
@@ -17,15 +23,45 @@
         align-self: center;
         text-align: center;
     }
+
+    .btn-cart {
+        color: #20bf6b !important;
+        text-transform: uppercase;
+        background: #ffffff;
+        padding: 4px;
+        border: 1px solid #20bf6b !important;
+        border-radius: 6px;
+        display: inline-block;
+    }
+
+        .btn-cart:hover {
+            color: #494949 !important;
+            border-radius: 50px;
+            border-color: #494949 !important;
+            transition: all 0.3s ease 0s;
+        }
+
+    .product-name {
+    }
+
+    .product-price {
+    }
+
+    .product-img {
+    }
 </style>
 
 <div class="product-grid">
     @foreach (var product in Model)
     {
         <div class="grid-item">
-            <img src="@product.ImageUrl" width="200px" />
-            <div>@product.Name</div>
-            <div>@product.Price kr</div>
+            <img class="product-img" src="@product.ImageUrl" width="200px" />
+            <div class="product-name">@product.Name</div>
+            <div class="product-price">@product.Price</div> <div>kr</div>
+            <div class="btn-cart">
+                @Html.ActionLink("Add to cart", "OrderNow", "ProductCart", new { id = product.Id }, null);
+            </div>
         </div>
     }
 </div>
+<script src="~/js/script.js"></script>

@@ -24,13 +24,13 @@
 
     <partial name="_SiteHeader" />
     <div class="container">
-           
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-    
-<partial name="_SiteFooter"/>
+
+    <partial name="_SiteFooter" />
 
 
     <environment include="Development">
@@ -52,7 +52,7 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script src="~/js/script.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

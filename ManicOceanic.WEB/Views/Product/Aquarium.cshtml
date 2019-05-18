@@ -26,6 +26,9 @@
             <img src="@product.ImageUrl" width="200px" />
             <div>@product.Name</div>
             <div>@product.Price kr</div>
+            <div class="btn-cart">
+                @Html.ActionLink("Add to cart", "OrderNow", "ProductCart", new { id = product.Id }, null);
+            </div>
         </div>
     }
 </div>

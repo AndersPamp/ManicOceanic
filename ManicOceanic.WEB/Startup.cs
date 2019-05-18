@@ -14,6 +14,7 @@ using ManicOceanic.DOMAIN.Services.Interfaces;
 using ManicOceanic.DOMAIN.Services;
 using ManicOceanic.DOMAIN.Repositories.Interfaces;
 using ManicOceanic.DATA.Data.Repositories;
+using System;
 
 namespace ManicOceanic.WEB
 {
@@ -37,7 +38,20 @@ namespace ManicOceanic.WEB
       });
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-      services.AddAutoMapper();
+
+      services.AddDistributedMemoryCache();
+
+      services.AddSession(options =>
+      {
+          // Set a short timeout for easy testing.
+          //options.IdleTimeout = TimeSpan.FromHours(1);
+          options.Cookie.HttpOnly = true;
+          // Make the session cookie essential
+          options.Cookie.IsEssential = true;
+      });
+            services.AddSession();
+
+            services.AddAutoMapper();
 
       services.AddDbContext<MOContext>(options =>
           options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -73,6 +87,7 @@ namespace ManicOceanic.WEB
 
       app.UseHttpsRedirection();
       app.UseStaticFiles();
+      app.UseSession();
       app.UseAuthentication();
       app.UseCookiePolicy();
 

@@ -47,7 +47,7 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
 
             [PersonalData]
-            [DataType(DataType.Text)]                     //It does take numbers anyway ... don't know why!
+            [DataType(DataType.Text)]                     
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
