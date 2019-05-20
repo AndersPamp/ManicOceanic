@@ -11,5 +11,8 @@ namespace ManicOceanic.DOMAIN.Services.Interfaces
         Task<Product> DeleteProductAsync(int productNumber);
         Task<Product> CreateProductAsync(Product product);
         Task<Product> UpdateProductAsync(Product product);
+        Task<Product> GetProductByCategoryIdAsync(int categoryId);
+        Task<Product> GetRandomProductAsync();
+
     }
 }

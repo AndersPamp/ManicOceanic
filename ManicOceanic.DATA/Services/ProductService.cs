@@ -56,5 +56,17 @@ namespace ManicOceanic.DOMAIN.Services
             await unitOfWork.SaveChangesAsync();
             return product;
         }
+
+        public async Task<Product> GetProductByCategoryIdAsync(int categoryId)
+        {
+            return await productRepository.GetProductByCategoryIdAsync(categoryId);
+        }
+
+        public async Task<Product> GetRandomProductAsync()
+        {
+            return await productRepository.GetRandomProductAsync();
+        }
+
+        
     }
 }
