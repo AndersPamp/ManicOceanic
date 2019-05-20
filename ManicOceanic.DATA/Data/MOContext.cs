@@ -27,8 +27,8 @@ namespace ManicOceanic.DATA.Data
             // Customer constraints
             modelBuilder.Entity<Customer>()
                 .HasAlternateKey(c => c.SocialSecurityNumber);
-            modelBuilder.Entity<Customer>()
-                .HasAlternateKey(c => c.CustomerNumber);
+            //modelBuilder.Entity<Customer>()
+            //    .HasAlternateKey(c => c.CustomerNumber);
             modelBuilder.Entity<Customer>()
                 .HasAlternateKey(u => u.UserName);
             
