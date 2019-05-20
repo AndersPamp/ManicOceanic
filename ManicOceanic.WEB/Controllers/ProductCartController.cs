@@ -103,6 +103,16 @@ namespace ManicOceanic.WEB.Controllers
             return View("Index",cartList);
         }
 
+        public IActionResult ChoseShipping(string shippingName)
+        {
+
+            return View("Index");
+        }
+        public IActionResult ChangeQuantity(int quantity)
+        {
+
+            return View("Index");
+        }
 
         public void SaveToSession(List<Cart> listOfCarts)
         {
@@ -115,5 +125,7 @@ namespace ManicOceanic.WEB.Controllers
             var cartList = JsonConvert.DeserializeObject<List<Cart>>(strList);
             return cartList;
         }
+
+
     }
 }
