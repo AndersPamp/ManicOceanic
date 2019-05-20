@@ -11,5 +11,7 @@ namespace ManicOceanic.DOMAIN.Repositories.Interfaces
         void DeleteProduct(Product product);
         void CreateProduct(Product product);
         void UpdateProduct(Product product);
+        Task<Product> GetProductByCategoryIdAsync(int categoryId);
+        Task<Product> GetRandomProductAsync();
     }
 }

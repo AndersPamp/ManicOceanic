@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ManicOceanic.DATA.Data;
 using ManicOceanic.DOMAIN.Entities.Products;
@@ -39,6 +41,30 @@ namespace ManicOceanic.DATA.Data.Repositories
         public void UpdateProduct(Product product)
         {
             moContext.Products.Update(product);
+        }
+
+
+        public async Task<Product> GetProductByCategoryIdAsync(int categoryId)
+        {
+            var allProducts = await moContext.Products.ToListAsync();
+            var onlyOneCategory = new List<Product>();
+
+            foreach (var product in allProducts)
+            {
+                if (product.CategoryId == categoryId)
+                {
+                    onlyOneCategory.Add(product);
+
+                }
+            }
+
+            return onlyOneCategory.OrderBy(r => Guid.NewGuid()).Take(1).First();
+        }
+
+        public async Task<Product> GetRandomProductAsync()
+        {   
+          
+            return moContext.Products.OrderBy(r => Guid.NewGuid()).Take(1).First();
         }
     }
 }

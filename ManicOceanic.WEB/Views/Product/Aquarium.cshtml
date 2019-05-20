@@ -1,59 +1,31 @@
-﻿
+﻿@model IList<ManicOceanic.DOMAIN.Entities.Products.Product>
 @{
     ViewData["Title"] = "Aquarium";
 }
 
 <h1>Aquarium</h1>
 
-<div class="container">
-    <div class="row">
+<style>
+    .product-grid {
+        display: grid;
+        grid: auto / repeat(4, 1fr);
+        grid-gap: 40px 20px;
+    }
 
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/aac59c91312b627a907ee6900ef959c1b7fa1011_320x320_fwb_i.jpg " class="img-fluid" alt="105 L Black">
-            </a>
+    .grid-item {
+        justify-self: center;
+        align-self: center;
+        text-align: center;
+    }
+</style>
+
+<div class="product-grid">
+    @foreach (var product in Model)
+    {
+        <div class="grid-item">
+            <img src="@product.ImageUrl" width="200px" />
+            <div>@product.Name</div>
+            <div>@product.Price kr</div>
         </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/aac59c91312b627a907ee6900ef959c1b7fa1011_320x320_fwb_i.jpg " class="img-fluid" alt="152 L Black">
-            </a>
-        </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/aac59c91312b627a907ee6900ef959c1b7fa1011_320x320_fwb_i.jpg " class="img-fluid" alt="222 L Black">
-            </a>
-        </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/eadc23cf68105924918a076cd56970263551b79f_320x320_fwb_i.jpg " class="img-fluid" alt="105 L White">
-            </a>
-        </div>
-    </div>
+    }
 </div>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.hornbach.se/data/shop/D04/001/780/491/409/507/DV_8_6271364_08_4c_DE_20180807134658.jpg" class="img-fluid" alt="Juwel Rio 240 L LED White">
-            </a>
-        </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.akvarieshopen.se/cache/eadc23cf68105924918a076cd56970263551b79f_320x320_fwb_i.jpg " class="img-fluid" alt="222 L White">
-            </a>
-        </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://www.hornbach.se/data/shop/D04/001/780/491/409/503/DV_8_6271363_06_4c_DE_20180807141651.jpg" class="img-fluid" alt="Juwel Rio 240 L LED Black">
-            </a>
-        </div>
-        <div class="col-sm">
-            <a href="#">
-                <img src="https://asset.conrad.com/media10/isa/160267/c1/-/sv/1528158_BB_00_FB/image.jpg" class="img-fluid" alt="Oase 30 L>
-            </a>
-        </div>
-    </div>
-</div>
-

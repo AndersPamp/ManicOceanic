@@ -1,29 +1,69 @@
-﻿@{
+﻿@model ManicOceanic.WEB.Models.HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi9hjhYdJJMCnmN957_R3utpDr26GXGnRWKZxqARWdIZmr5_rx" alt="Fish" width="500" height="333">
-</div>
+@*<hero>
+    <div class ="text-center">
+        <figure class="figure">
+            <img src="@Model.HeroProduct.ImageUrl" class="figure-img img-fluid rounded-pill" alt="@Model.HeroProduct.Name" width="500" height="333">
+            <figcaption class="figure-caption">Photo by XXX.</figcaption>
+        </figure>
+    </div>
+</hero>*@
+
+<hero>
+    <div class ="text-center">
+        <figure class="figure">
+            <img src="https://www.aquariumarchitecture.com/site/wp-content/uploads/2013/06/aquarium-architecture-luxury-reef-tank-001.jpg"
+                 class="figure-img img-fluid" alt="Fishes in aquarium" width="600" height="375">
+            <figcaption class="figure-caption"> Get inspired by Manic Oceanic.</figcaption>
+        </figure>
+    </div>
+</hero>
 
 
-<div class="container">
+
+
+<div id="home-container" class="container">
     <div class="row">
         <div class="col-sm">
             <a asp-area="" asp-controller="Category" asp-action="Index" asp-route-id="1">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ4qk1TeglKMQ618iWoJp73fyxvJnG-jLukOJTV1xeY7ZrQTc9aA" class="card-img-top" alt="Fish">
+                <img src="@Model.Fish.ImageUrl"  alt="@Model.Fish.Name" class="card-img-top">
             </a>
         </div>
         <div class="col-sm">
             <a asp-area="" asp-controller="Product" asp-action="FishFood" asp-route-id="2">
-                <img src="https://s7d2.scene7.com/is/image/PetSmart/1031529?$sclp-prd-main_large$" alt="Food">
+                <img src="@Model.FishFood.ImageUrl" alt="@Model.FishFood.Name" class="card-img-top">
             </a>
         </div>
         <div class="col-sm">
             <a asp-area="" asp-controller="Product" asp-action="Aquarium" asp-route-id="3">
-                <img src="https://images-na.ssl-images-amazon.com/images/I/51GV%2BHvLEtL._SY300_QL70_.jpg" alt="Aquarium">
+                <img src="@Model.Aquarium.ImageUrl" alt="@Model.Aquarium.Name" class="card-img-top">
             </a>
         </div>
     </div>
 
 </div>
+
+
+@*<div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <a asp-area="" asp-controller="Category" asp-action="Index" asp-route-id="1">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ4qk1TeglKMQ618iWoJp73fyxvJnG-jLukOJTV1xeY7ZrQTc9aA" class="card-img-top" alt="Fish">
+                </a>
+            </div>
+            <div class="col-sm">
+                <a asp-area="" asp-controller="Product" asp-action="FishFood" asp-route-id="2">
+                    <img src="https://s7d2.scene7.com/is/image/PetSmart/1031529?$sclp-prd-main_large$" alt="Food">
+                </a>
+            </div>
+            <div class="col-sm">
+                <a asp-area="" asp-controller="Product" asp-action="Aquarium" asp-route-id="3">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/51GV%2BHvLEtL._SY300_QL70_.jpg" alt="Aquarium">
+                </a>
+            </div>
+        </div>
+
+    </div>*@
