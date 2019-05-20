@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ManicOceanic.WEB.Dto.ProductDto>
+﻿@model IEnumerable<ManicOceanic.DOMAIN.Entities.Products.Product>
 
 <h1>Products</h1>
 
@@ -21,9 +21,6 @@
         @Html.DisplayNameFor(model => model.Stock)
     </th>
     <th>
-        @Html.DisplayNameFor(model => model.Description)
-    </th>
-    <th>
         @Html.DisplayNameFor(model => model.UnitOfMeasure)
     </th>
     <th>
@@ -32,8 +29,7 @@
     <th></th>
 </tr>
 </thead>
-</table>
-    @*<tbody>
+    <tbody>
     @foreach (var item in Model) {
         <tr>
             <td>
@@ -49,9 +45,6 @@
                 @Html.DisplayFor(modelItem => item.Stock)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.UnitOfMeasure)
             </td>
             <td>
@@ -65,4 +58,4 @@
         </tr>
     }
     </tbody>
-</table>*@
+</table>

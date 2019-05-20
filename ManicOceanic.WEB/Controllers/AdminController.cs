@@ -8,20 +8,24 @@ namespace ManicOceanic.WEB.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly IProductService productService;
         private readonly ICategoryService categoryService;
 
-        public AdminController(ICategoryService categoryService)
+        public AdminController(ICategoryService categoryService, IProductService productService)
         {
             this.categoryService = categoryService;
+            this.productService = productService;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Product()
+        public async Task<IActionResult> Product()
         {
-            return View();
+            var products = await productService.ListProductsAsync();
+
+            return View(products);
         }
 
         public async Task<IActionResult> Create()
