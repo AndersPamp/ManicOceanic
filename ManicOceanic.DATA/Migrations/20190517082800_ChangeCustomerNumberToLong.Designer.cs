@@ -4,14 +4,16 @@ using ManicOceanic.DATA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ManicOceanic.DATA.Migrations
 {
     [DbContext(typeof(MOContext))]
-    partial class MOContextModelSnapshot : ModelSnapshot
+    [Migration("20190517082800_ChangeCustomerNumberToLong")]
+    partial class ChangeCustomerNumberToLong
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,8 +127,6 @@ namespace ManicOceanic.DATA.Migrations
                     b.Property<string>("ZipCode");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("CustomerNumber");
 
                     b.HasAlternateKey("SocialSecurityNumber");
 

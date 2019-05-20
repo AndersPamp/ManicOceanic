@@ -41,25 +41,62 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [PersonalData]
+            [MaxLength(50)]
+            [DataType(DataType.Text)]
+            [Display(Name = "First Name*")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [PersonalData]
+            [MaxLength (50)]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last Name*")]
+            public string LastName { get; set; }
+
+            [Required]
+            [StringLength(12, MinimumLength = 12, ErrorMessage = "Field must be 12 numbers")]
+            [RegularExpression("([0-9]+)", ErrorMessage = "Only numbers are allowed")]
+            [Display(Name = "Social Security Number")]
+            public string SocialSecurityNumber { get; set; }
+
+            [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Email*")]
             public string Email { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Password*")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Confirm password*")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
+            [Phone]
+            [Display(Name = "Phone number")]
+            public string PhoneNumber { get; set; }
+
+
             [Required]
-            
-            [Display(Name = "Social Security Number")]
-            public string SocialSecurityNumber { get; set; }
+            [PersonalData]
+            [Display(Name = "Street Address*")]
+            public string StreetAddress { get; set; }
+
+            [Required]
+            [MaxLength(5, ErrorMessage = "Max 5 Digits")]
+            [Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+            [Display(Name = "ZIP Code*")]
+            public string ZIPCode { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "City*")]
+            public string City { get; set; }
+
         }
 
         public void OnGet(string returnUrl = null)
@@ -72,20 +109,39 @@ namespace ManicOceanic.WEB.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
+                var today = DateTime.Now;
+                var dateToday = today.Date;
+                var yesterday = dateToday.AddDays(-1);
+                var tomorrow = dateToday.AddDays(1);
+               
+                var nbrOfCustomersOnDate = _userManager.Users.Count(c => c.Created.Date > yesterday &&
+                                                                         c.Created.Date < tomorrow); 
+                var startNbr = 101;
+                long customerNbr = 0;
+
+                var dateString = dateToday.ToString("yyyyMMdd");
+                if (nbrOfCustomersOnDate == 0)
+                {
+                    customerNbr = long.Parse(dateString + startNbr.ToString());
+                } else
+                {
+                    customerNbr = _userManager.Users.Max(c => c.CustomerNumber) + 1;
+                }     
                 
-                var x = _userManager.Users;
-                var maxValue = 0;
+                var user = new Customer {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    SocialSecurityNumber = Input.SocialSecurityNumber,
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    PhoneNumber = Input.PhoneNumber,
+                    StreetAddress = Input.StreetAddress,
+                    ZipCode = Input.ZIPCode,
+                    City = Input.City,
+                    CustomerNumber = customerNbr,
+                    Created = today
+                };
 
-                if (x.Count() == 0)
-                {
-                    maxValue = 0;
-                }
-                else
-                {
-                    maxValue = x.Max(c => c.CustomerNumber);
-                }
-
-                var user = new Customer { UserName = Input.Email, Email = Input.Email,SocialSecurityNumber = Input.SocialSecurityNumber ,CustomerNumber = maxValue+1};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

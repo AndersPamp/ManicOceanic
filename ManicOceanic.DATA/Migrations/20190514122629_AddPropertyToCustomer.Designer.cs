@@ -4,14 +4,16 @@ using ManicOceanic.DATA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ManicOceanic.DATA.Migrations
 {
     [DbContext(typeof(MOContext))]
-    partial class MOContextModelSnapshot : ModelSnapshot
+    [Migration("20190514122629_AddPropertyToCustomer")]
+    partial class AddPropertyToCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,7 @@ namespace ManicOceanic.DATA.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<long>("CustomerNumber");
+                    b.Property<int>("CustomerNumber");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
