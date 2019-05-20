@@ -41,8 +41,20 @@
                         <th>@product.Product.UnitOfMeasure</th>
                         <th>@product.Product.Price</th>
                         <th>
-                            @product.Quantity 
-                        </th>
+                            @product.Quantity
+                            
+
+                            @*@using (Html.BeginForm("ChangeQuantity", "ProductCart"))
+                            {
+                                @Html.EditorFor(x => x[count - 1].Quantity)
+                                <input type="submit" value="OK" />
+                            }*@
+
+                            @Html.EditorFor(x => x[count - 1].Quantity)
+                            <input type="submit" value="OK" />
+
+                        </th> 
+
                         <th>@(string.Format("{0:N0}",product.Product.Price*product.Quantity))</th>
                         <th>@Html.ActionLink("Delete","DeleteItem","ProductCart", new {id= product.Product.Id},
                                 new {onclick="return confirm ('Are you sure you want to delete this item ?')"})</th>

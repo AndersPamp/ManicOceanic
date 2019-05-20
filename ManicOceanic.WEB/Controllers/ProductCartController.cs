@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Migrations.Sql;
 using System.Linq;
 using System.Text.Encodings.Web;
+using ManicOceanic.DOMAIN.Entities.Sales;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace ManicOceanic.WEB.Controllers
@@ -105,13 +106,23 @@ namespace ManicOceanic.WEB.Controllers
 
         public IActionResult ChoseShipping(string shippingName)
         {
-
+            var shippingChoice = new Shipping();
+            
             return View("Index");
         }
-        public IActionResult ChangeQuantity(int quantity)
-        {
+        //public IActionResult ChangeQuantity()
+        //{
+        //    var cartList = LoadSession();
+        //    SaveToSession(cartList);
 
-            return View("Index");
+        //    return View("Index",cartList);
+        //}
+        public IActionResult ChangeQuantity(List<Cart>cartList)
+        {
+            
+            SaveToSession(cartList);
+
+            return View("Index", cartList);
         }
 
         public void SaveToSession(List<Cart> listOfCarts)
