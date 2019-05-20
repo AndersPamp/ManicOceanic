@@ -27,7 +27,6 @@ namespace ManicOceanic.WEB.Controllers
           this.moContext = moContext;
       }
 
-
     public async Task<IActionResult> Index()
     {
         var viewModel = new HomeViewModel();
@@ -41,9 +40,7 @@ namespace ManicOceanic.WEB.Controllers
             return View(viewModel);
     }
 
-
-
-        public IActionResult Privacy()
+    public IActionResult Privacy()
     {
       return View();
     }
