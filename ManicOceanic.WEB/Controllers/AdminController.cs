@@ -3,6 +3,10 @@ using ManicOceanic.DOMAIN.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
+using AutoMapper;
+using ManicOceanic.WEB.Dto;
+using ManicOceanic.WEB.Extensions;
+using ManicOceanic.DOMAIN.Entities.Products;
 
 namespace ManicOceanic.WEB.Controllers
 {
@@ -10,11 +14,13 @@ namespace ManicOceanic.WEB.Controllers
     {
         private readonly IProductService productService;
         private readonly ICategoryService categoryService;
+        private readonly IMapper mapper;
 
-        public AdminController(ICategoryService categoryService, IProductService productService)
+        public AdminController(ICategoryService categoryService, IProductService productService, IMapper mapper)
         {
             this.categoryService = categoryService;
             this.productService = productService;
+            this.mapper = mapper;
         }
         public IActionResult Index()
         {
@@ -32,8 +38,19 @@ namespace ManicOceanic.WEB.Controllers
         {
             var categories = await categoryService.ListCategoriesAsync();
 
-            ViewData["CategoryId"] = new SelectList(categories);
+            ViewData["CategoryId"] = new SelectList(categories, "Id", "Name");
 
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductDto productDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessages());
+
+            var product = mapper.Map<ProductDto, Product>(productDto);
+            var result = await productService.CreateProductAsync(product);
             return View();
         }
     }
