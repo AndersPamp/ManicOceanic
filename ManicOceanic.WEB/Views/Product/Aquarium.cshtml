@@ -22,10 +22,11 @@
 <div class="product-grid">
     @foreach (var product in Model)
     {
-        <div class="grid-item">
-            <img src="@product.ImageUrl" width="200px" />
-            <div>@product.Name</div>
-            <div>@product.Price kr</div>
-        </div>
+    <div class="grid-item">
+        <a asp-controller="Product" asp-action="ShowDetail" asp-route-productNumber="@product.ProductNumber"><img src="@product.ImageUrl" width="200px" /></a>
+        <div>@product.Name</div>
+        <div>@product.Price kr</div>
+       
+    </div>
     }
 </div>
