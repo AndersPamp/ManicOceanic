@@ -80,6 +80,9 @@ namespace ManicOceanic.DOMAIN.Services
             return await productRepository.GetRandomProductAsync();
         }
 
-        
+        public async Task<IEnumerable<Product>> GetProductBySearchAsync(string searchWord)
+        {
+            return await productRepository.GetProductBySearchAsync(searchWord);
+        }
     }
 }

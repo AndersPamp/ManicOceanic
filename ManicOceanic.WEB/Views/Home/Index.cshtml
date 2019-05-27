@@ -3,22 +3,24 @@
     ViewData["Title"] = "Home Page";
 }
 
-@*<hero>
-    <div class ="text-center">
-        <figure class="figure">
-            <img src="@Model.HeroProduct.ImageUrl" class="figure-img img-fluid rounded-pill" alt="@Model.HeroProduct.Name" width="500" height="333">
-            <figcaption class="figure-caption">Photo by XXX.</figcaption>
-        </figure>
-    </div>
-</hero>*@
+
+
+@using (Html.BeginForm("SearchProduct", "Search"))
+{
+  
+    <input type="text" name="searchWord" required="required" />
+    <input type="submit" value="Search" />
+}
 
 <hero>
-    <div class ="text-center">
-        <figure class="figure">
-            <img src="https://www.aquariumarchitecture.com/site/wp-content/uploads/2013/06/aquarium-architecture-luxury-reef-tank-001.jpg"
-                 class="figure-img img-fluid" alt="Fishes in aquarium" width="600" height="375">
-            <figcaption class="figure-caption"> Get inspired by Manic Oceanic.</figcaption>
-        </figure>
+    <div class="text-center">
+        <iframe src="https://giphy.com/embed/HNJNv0fy2HQZy" width="480" height="245" frameBorder="0"
+                class="giphy-embed" allowFullScreen></iframe>
+        @*<figure class="figure">
+                <img src="https://www.aquariumarchitecture.com/site/wp-content/uploads/2013/06/aquarium-architecture-luxury-reef-tank-001.jpg"
+                     class="figure-img img-fluid" alt="Fishes in aquarium" width="600" height="375">
+                <figcaption class="figure-caption"> Get inspired by Manic Oceanic.</figcaption>
+            </figure>*@
     </div>
 </hero>
 
@@ -29,7 +31,7 @@
     <div class="row">
         <div class="col-sm">
             <a asp-area="" asp-controller="Category" asp-action="Index" asp-route-id="1">
-                <img src="@Model.Fish.ImageUrl"  alt="@Model.Fish.Name" class="card-img-top">
+                <img src="@Model.Fish.ImageUrl" alt="@Model.Fish.Name" class="card-img-top">
             </a>
         </div>
         <div class="col-sm">

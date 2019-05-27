@@ -71,7 +71,7 @@ namespace ManicOceanic.WEB.Controllers
         public async Task<IActionResult> ShowDetail(int productNumber)
         {
             var product = await productService.GetProductByProductNumberAsync(productNumber);
-            //var product = moContext.Products.FirstOrDefault(x => x.ProductNumber == productNumber);
+           
 
             if (product == null)
             {
