@@ -2,18 +2,11 @@
 @using Microsoft.CodeAnalysis
 @model IList<ManicOceanic.WEB.Models.Cart>
 
+
 <h1 class="text-center">Shopping cart</h1><br>
 
 <div id="products"></div>
 
-<script>
-    function AddFunction()
-    {
-        var count = document.getElementById("quantity").value;
-        
-        return count;
-    }
-</script>
 
 <div class="container">
     <table class="table">
@@ -30,29 +23,21 @@
         <tbody id="cart-list"></tbody>
         <tfoot>
             @if (@Model != null)
-            {
+             {
+                var quantity = 1;
                 var count = 1;
                 @foreach (var product in @Model)
                 {
-                    <tr>
+                    <tr class="cart-item">
                         
-                        <th>@count</th>
+                        <th class="counting">@count</th>
+
                         <th>@product.Product.Name </th>
                         <th>@product.Product.UnitOfMeasure</th>
                         <th>@product.Product.Price</th>
-                        <th>
+                        <th class="quantity">
                             @product.Quantity
-                            
-
-                            @*@using (Html.BeginForm("ChangeQuantity", "ProductCart"))
-                            {
-                                @Html.EditorFor(x => x[count - 1].Quantity)
-                                <input type="submit" value="OK" />
-                            }*@
-
-                            @Html.EditorFor(x => x[count - 1].Quantity)
-                            <input type="submit" value="OK" />
-
+                            <input class="quantity-change"  type="number" value="@product.Quantity" min="1" max="1000" data-product-Id="@product.Product.Id" data-product-Stock="@product.Product.Stock"/>
                         </th> 
 
                         <th>@(string.Format("{0:N0}",product.Product.Price*product.Quantity))</th>
@@ -64,7 +49,7 @@
                     </tr>
                     count++;
                 }
-            }
+             }
         <tr>
             @{
                 string total = "0";
@@ -112,12 +97,70 @@
     <div class="buttons">
         <a class="btn btn-primary pull-right" href='javascript:history.go(-1)'>Continue shopping</a>
         @*<a class="btn btn-primary pull-right" asp-action="Index" asp-controller="Home" role="button">Continue shopping</a>*@
-        <a class="btn btn-success pull-right" href="checkout.html" role="button">Proceed to payment</a>
+        <a id="btn1" class="btn btn-success pull-right" href="#" role="button">Proceed to payment</a>
     </div>
 
 </div>
 
 <style>
     .cart-quantity{}
+    .counting{}
+    .product-id{}
+    .quantity-change {
+    }
 </style>
 
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+
+            $(".quantity-change").change(function() {
+                var stock = $(this).data("productStock");
+                var quantity = $(this).val();
+                if (quantity > 100) {
+                    alert("Quantity cannot be more than 100!");
+                    return;
+                }
+                if (quantity == 0) {
+                    alert("Quantity cannot be 0 !");
+                    return;
+                }
+
+                if (quantity > stock) {
+                    alert("We only have "+stock+" in our warehouse!");
+                    return;
+                }
+
+                var productId = $(this).data("productId");
+
+
+                var requestData = {
+                    id: productId,
+                    quantity: quantity
+                };
+
+                $.ajax({
+                    url: '/ProductCart/ChangeQuantity',
+                    type: 'POST',
+                    data: JSON.stringify(requestData),
+                    //dataType: 'json',
+                    contentType: 'application/json',
+                    error: function(xhr) {
+                        alert('Error: ' + xhr.statusText);
+                    },
+                    success: function() {
+                        window.setTimeout(function() { location.reload() }, 5);
+
+                    }
+
+                });
+
+                console.log(quantity);
+                console.log(productId);
+
+            });
+        });
+
+    </script>
+}

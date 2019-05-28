@@ -64,7 +64,8 @@ namespace ManicOceanic.WEB.Controllers
 
                     SaveToSession(cartList);
 
-                    return View("Index", cartList);
+                    //return View("Index", cartList);
+                    return Redirect("/ProductCart/index");
                 }
                 cartList.Add(new Cart(_dbContext.Products.Find(id),1));
 
@@ -73,7 +74,8 @@ namespace ManicOceanic.WEB.Controllers
 
              var cartList1 = LoadSession();
 
-            return View("Index",cartList1);
+            //return View("Index",cartList1);
+            return Redirect("/ProductCart/index");
         }
 
         public IActionResult DeleteItem(Guid? id)
@@ -110,19 +112,27 @@ namespace ManicOceanic.WEB.Controllers
             
             return View("Index");
         }
-        //public IActionResult ChangeQuantity()
-        //{
-        //    var cartList = LoadSession();
-        //    SaveToSession(cartList);
-
-        //    return View("Index",cartList);
-        //}
-        public IActionResult ChangeQuantity(List<Cart>cartList)
+        
+        [HttpPost]
+        public IActionResult ChangeQuantity([FromBody]Data data)           //
         {
-            
+            var quantity = data.Quantity;
+            var productId = data.Id;
+
+            var cartList = LoadSession();
+
+            var product = cartList.FirstOrDefault(x => x.Product.Id == productId);
+
+            if (product!=null)
+            {
+                product.Quantity = quantity;
+            }
+
             SaveToSession(cartList);
 
-            return View("Index", cartList);
+            //return RedirectToAction(nameof(Index));
+            //return View("Index", cartList);
+            return Redirect("/ProductCart/index");
         }
 
         public void SaveToSession(List<Cart> listOfCarts)
@@ -138,5 +148,11 @@ namespace ManicOceanic.WEB.Controllers
         }
 
 
+    }
+
+    public class Data
+    {
+        public Guid Id { get; set; }
+        public int Quantity { get; set; }
     }
 }
