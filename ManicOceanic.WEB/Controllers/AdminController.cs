@@ -34,6 +34,13 @@ namespace ManicOceanic.WEB.Controllers
             return View(products);
         }
 
+        public async Task<IActionResult> ProductDelete(int productNumber)
+        {
+            var product = await productService.DeleteProductAsync(productNumber);
+           
+            return View(product);
+        }
+
         public async Task<IActionResult> Create()
         {
             var categories = await categoryService.ListCategoriesAsync();
