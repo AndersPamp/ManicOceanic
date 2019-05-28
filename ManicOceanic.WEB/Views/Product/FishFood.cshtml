@@ -40,13 +40,14 @@
     @foreach (var product in Model)
     {
         <div class="grid-item">
-            <img class="product-img" src="@product.ImageUrl" width="200px" />
-            <div class="product-name">@product.Name</div>
-            <div class="product-price">@product.Price</div> <div>kr</div>
+            <a asp-controller="Product" asp-action="ShowDetail" asp-route-productNumber="@product.ProductNumber">
+                <img src="@product.ImageUrl" width="200px" /></a>
             <div class="btn-cart">
                 @Html.ActionLink("Add to cart", "OrderNow", "ProductCart", new { id = product.Id }, null);
             </div>
         </div>
+            <div class="product-price">@product.Price</div> <div>kr</div>
+            <div class="product-name">@product.Name</div>
     }
 </div>
 <script src="~/js/script.js"></script>

@@ -29,6 +29,7 @@
         <div class="btn-cart">
             @Html.ActionLink("Add to cart", "OrderNow", "ProductCart", new { id = product.Id }, null);
         </div>
+        <a asp-controller="Product" asp-action="ShowDetail" asp-route-productNumber="@product.ProductNumber"><img src="@product.ImageUrl" width="200px" /></a>
     </div>
     }
 </div>

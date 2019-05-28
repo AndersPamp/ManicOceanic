@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ManicOceanic.DATA.Data;
+using ManicOceanic.DOMAIN.Services.Interfaces;
+using ManicOceanic.WEB.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ManicOceanic.WEB.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly MOContext _dbContext;
+        private readonly MOContext moContext;
+        private readonly IProductService productService;
 
-        public ProductController (MOContext dbContext)
+        public ProductController (MOContext moContext, IProductService productService)
         {
-            _dbContext = dbContext;
+            this.moContext = moContext;
+            this.productService = productService;
         }
 
         public IActionResult SaltWaterFish()
         {
-            var productsList = _dbContext.Products.Where(x => x.CategoryId == 1).ToList();
+            var productsList = moContext.Products.Where(x => x.CategoryId == 1).ToList();
 
             if (productsList == null)
             {
@@ -30,7 +34,7 @@ namespace ManicOceanic.WEB.Controllers
 
         public IActionResult FreshWaterFish()
         {
-            var productsList = _dbContext.Products.Where(x => x.CategoryId == 2).ToList();
+            var productsList = moContext.Products.Where(x => x.CategoryId == 2).ToList();
 
             if (productsList == null)
             {
@@ -42,7 +46,7 @@ namespace ManicOceanic.WEB.Controllers
 
         public IActionResult FishFood()
         {
-            var productsList = _dbContext.Products.Where(x => x.CategoryId == 3).ToList();
+            var productsList = moContext.Products.Where(x => x.CategoryId == 3).ToList();
 
             if (productsList == null)
             {
@@ -54,7 +58,7 @@ namespace ManicOceanic.WEB.Controllers
 
         public IActionResult Aquarium()
         {
-            var productsList = _dbContext.Products.Where(x => x.CategoryId == 4).ToList();
+            var productsList = moContext.Products.Where(x => x.CategoryId == 4).ToList();
 
             if (productsList == null)
             {
@@ -63,6 +67,23 @@ namespace ManicOceanic.WEB.Controllers
 
             return View(productsList);
         }
-        
+
+        public async Task<IActionResult> ShowDetail(int productNumber)
+        {
+            var product = await productService.GetProductByProductNumberAsync(productNumber);
+            //var product = moContext.Products.FirstOrDefault(x => x.ProductNumber == productNumber);
+
+            if (product == null)
+            {
+                throw new Exception("Oooppps something went wrong");
+            }
+            var viewModel = new ProductDetailViewModel
+            {
+                Product = product
+            };
+
+            return View(viewModel);
+        }
+
     }
 }
