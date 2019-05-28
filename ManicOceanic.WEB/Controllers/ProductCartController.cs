@@ -45,18 +45,23 @@ namespace ManicOceanic.WEB.Controllers
 
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(strCart)))
             {
-                List<Cart> IsCart = new List<Cart>
-                {
-                    new Cart(_dbContext.Products.Find(id),1)
-                };
+                var newProduct = _dbContext.Products.Find(id);
 
-                HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(IsCart));
+                if (newProduct.Stock>0)
+                {
+                    List<Cart> IsCart = new List<Cart>
+                    {
+                        new Cart(_dbContext.Products.Find(id),1)
+                    };
+                    HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(IsCart));
+                }
             }
             else
             {
                 var cartList = LoadSession();
 
                 var chosenProduct = cartList.FirstOrDefault(x => x.Product.Id == id);
+                
 
                 if (chosenProduct != null)
                 {
@@ -67,14 +72,23 @@ namespace ManicOceanic.WEB.Controllers
                     //return View("Index", cartList);
                     return Redirect("/ProductCart/index");
                 }
-                cartList.Add(new Cart(_dbContext.Products.Find(id),1));
+                else
+                {
+                    var product = _dbContext.Products.Find(id);
 
-                SaveToSession(cartList);
+                    var stock = product.Stock;
+                    if (stock>0)
+                    {
+                        cartList.Add(new Cart(product, 1));
+
+                        SaveToSession(cartList);
+                    }
+                }
             }
 
-             var cartList1 = LoadSession();
-
+            //var cartList1 = LoadSession();
             //return View("Index",cartList1);
+
             return Redirect("/ProductCart/index");
         }
 

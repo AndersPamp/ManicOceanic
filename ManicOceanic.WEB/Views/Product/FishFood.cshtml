@@ -24,7 +24,7 @@
         text-align: center;
     }
 
-    
+
 
     .product-name {
     }
@@ -41,13 +41,30 @@
     {
         <div class="grid-item">
             <a asp-controller="Product" asp-action="ShowDetail" asp-route-productNumber="@product.ProductNumber">
-                <img src="@product.ImageUrl" width="200px" /></a>
-            <div class="btn-cart">
-                @Html.ActionLink("Add to cart", "OrderNow", "ProductCart", new { id = product.Id }, null);
-            </div>
-        </div>
+                <img src="@product.ImageUrl" width="200px" />
+            </a>
             <div class="product-price">@product.Price</div> <div>kr</div>
             <div class="product-name">@product.Name</div>
+            <div class="btn-cart" data-product-Count="@product.Stock">
+                @Html.ActionLink("Add to cart", "OrderNow", "ProductCart", new { id = product.Id }, null)
+            </div>
+        </div>
+
     }
 </div>
-<script src="~/js/script.js"></script>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".btn-cart").each(function () {
+                var stock = $(this).data("productCount");
+                if (stock == 0) {
+                    var txt = "Out of order!";
+                    $(this).css('color', 'red');
+                    $(this).html(txt);
+                }
+            });
+        });
+    </script>
+}

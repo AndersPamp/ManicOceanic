@@ -7,9 +7,9 @@
 
 <style>
     .product-grid {
-    display: grid;
-    grid: auto / repeat(4, 1fr);
-    grid-gap: 40px 20px;
+        display: grid;
+        grid: auto / repeat(4, 1fr);
+        grid-gap: 40px 20px;
     }
 
     .grid-item {
@@ -20,19 +20,34 @@
 </style>
 
 <div class="product-grid">
-    @foreach(var product in Model)
+    @foreach (var product in Model)
     {
         <div class="grid-item">
             <a asp-controller="Product" asp-action="ShowDetail" asp-route-productNumber="@product.ProductNumber"><img src="@product.ImageUrl" width="200px" /> </a>
             <div>@product.Name</div>
             <div>@product.Price kr</div>
-            <div class="btn-cart">
-                @Html.ActionLink("Add to cart", "OrderNow", "ProductCart", new { id = product.Id }, null);
+            <div class="btn-cart" data-product-Count="@product.Stock">
+                @Html.ActionLink("Add to cart", "OrderNow", "ProductCart", new { id = product.Id }, null)
             </div>
         </div>
     }
 </div>
 
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            $(".btn-cart").each(function () {
+                var stock = $(this).data("productCount");
+                if (stock == 0) {
+                    var txt = "Out of order!";
+                    $(this).css('color', 'red');
+                    $(this).html(txt);
+                }
+            });
+        });
+    </script>
+}
 
 
 
