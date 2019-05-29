@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using ManicOceanic.DATA.Data;
-using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ManicOceanic.WEB.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace ManicOceanic.WEB.Controllers
 {
-  public class HomeController : Controller
+    public class HomeController : Controller
   {
       private readonly IProductService productService;
       private readonly MOContext moContext;

@@ -13,6 +13,7 @@ namespace ManicOceanic.DOMAIN.Services.Interfaces
         Task<Product> UpdateProductAsync(Product product);
         Task<Product> GetProductByCategoryIdAsync(int categoryId);
         Task<Product> GetRandomProductAsync();
+        Task<IEnumerable<Product>> GetProductBySearchAsync(string searchWord);
 
     }
 }

@@ -66,5 +66,12 @@ namespace ManicOceanic.DATA.Data.Repositories
           
             return moContext.Products.OrderBy(r => Guid.NewGuid()).Take(1).First();
         }
+
+        public async Task<IEnumerable<Product>> GetProductBySearchAsync(string searchWord)
+        {
+            return await moContext.Products.Where(x => x.Name.Contains(searchWord) || searchWord == null)
+                .ToListAsync();
+
+        }
     }
 }
