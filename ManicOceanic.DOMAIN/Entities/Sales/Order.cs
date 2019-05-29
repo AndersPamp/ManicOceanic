@@ -11,6 +11,7 @@ namespace ManicOceanic.DOMAIN.Entities.Sales
     public EPayment PaymentType { get; set; }
     public Shipping Shipping { get; set; }
     public decimal Tax { get; set; }
+    public decimal TotalCost { get; set; }
     public string CustomerName { get; set; }
   }
 }
