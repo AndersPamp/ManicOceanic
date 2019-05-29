@@ -1,60 +1,166 @@
-﻿<h1 class="text-center">Shopping cart</h1><br>
+﻿@using ManicOceanic.DOMAIN.Entities.Sales
+@using Microsoft.CodeAnalysis
+@model IList<ManicOceanic.WEB.Models.Cart>
+
+
+<h1 class="text-center">Shopping cart</h1><br>
 
 <div id="products"></div>
+
 
 <div class="container">
     <table class="table">
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
-            <th>SubTotal</th>
-        </tr>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Unit of measure </th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>SubTotal</th>
+            </tr>
         </thead>
-        <tbody id="cart-list">
-
-        </tbody>
+        <tbody id="cart-list"></tbody>
         <tfoot>
+            @if (@Model != null)
+             {
+                var quantity = 1;
+                var count = 1;
+                @foreach (var product in @Model)
+                {
+                    <tr class="cart-item">
+                        
+                        <th class="counting">@count</th>
+
+                        <th>@product.Product.Name </th>
+                        <th>@product.Product.UnitOfMeasure</th>
+                        <th>@product.Product.Price</th>
+                        <th class="quantity">
+                            @product.Quantity
+                            <input class="quantity-change"  type="number" value="@product.Quantity" min="1" max="1000" data-product-Id="@product.Product.Id" data-product-Stock="@product.Product.Stock"/>
+                        </th> 
+
+                        <th>@(string.Format("{0:N0}",product.Product.Price*product.Quantity))</th>
+                        <th>@Html.ActionLink("Delete","DeleteItem","ProductCart", new {id= product.Product.Id},
+                                new {onclick="return confirm ('Are you sure you want to delete this item ?')"})</th>
+
+                        <th> </th>
+                        <th id="total"></th>
+                    </tr>
+                    count++;
+                }
+             }
         <tr>
+            @{
+                string total = "0";
+                string vat = "0";
+                if (@Model != null)
+                {
+                    var temp = @Model;
+                    total = string.Format("{0:N0}", temp.Sum(x => x.Quantity * x.Product.Price));
+                    vat = string.Format("{0:N0}", ((25 * decimal.Parse(total)) / 100));
+                }
+                                
+            }
             <th></th>
             <th></th>
             <th></th>
             <th></th>
-            <th>Total: </th>
-            <th id="total"></th>
+            <th>VAT 25%:
+                
+            </th>
+            <th id="vat">@vat Kr</th>
         </tr>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>VAT 25%: </th>
-            <th id="vat"></th>
-        </tr>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>Shipping: </th>
-            <th id="shipping"></th>
-        </tr>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>To pay: </th>
-            <th id="to-pay"></th>
-        </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Shipping: </th>
+                <th id="shipping"><select id="shipping1" name="shipping1">
+                        <option value="UPS">UPS</option>
+                        <option value="Postnord">Postnord</option>
+                        <option value="Schenker">Schenker</option>
+                    </select>
+                    </th>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th >To pay: </th>
+                <th id="to-pay" style="color: brown">@total Kr</th>
+            </tr>
         </tfoot>
     </table>
     <div class="buttons">
-        <a class="btn btn-primary pull-right" href="index.html" role="button">Continue shopping</a>
-        <a class="btn btn-success pull-right" href="checkout.html" role="button">Proceed to payment</a>
+        <a class="btn btn-primary pull-right" href='javascript:history.go(-1)'>Continue shopping</a>
+        @*<a class="btn btn-primary pull-right" asp-action="Index" asp-controller="Home" role="button">Continue shopping</a>*@
+        <a id="btn1" class="btn btn-success pull-right" href="#" role="button">Proceed to payment</a>
     </div>
 
 </div>
+
+<style>
+    .cart-quantity{}
+    .counting{}
+    .product-id{}
+    .quantity-change {
+    }
+</style>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+
+            $(".quantity-change").change(function() {
+                var stock = $(this).data("productStock");
+                var quantity = $(this).val();
+                if (quantity > 100) {
+                    alert("Quantity cannot be more than 100!");
+                    return;
+                }
+                if (quantity <= 0) {
+                    alert("Quantity cannot be 0 !");
+                    return;
+                }
+
+                if (quantity > stock) {
+                    alert("We have only "+stock+" in our warehouse!");
+                    return;
+                }
+
+                var productId = $(this).data("productId");
+
+
+                var requestData = {
+                    id: productId,
+                    quantity: quantity
+                };
+
+                $.ajax({
+                    url: '/ProductCart/ChangeQuantity',
+                    type: 'POST',
+                    data: JSON.stringify(requestData),
+                    //dataType: 'json',
+                    contentType: 'application/json',
+                    error: function(xhr) {
+                        alert('Error: ' + xhr.statusText);
+                    },
+                    success: function() {
+                        window.setTimeout(function() { location.reload() }, 5);
+
+                    }
+
+                });
+
+                console.log(quantity);
+                console.log(productId);
+
+            });
+        });
+
+    </script>
+}
