@@ -58,6 +58,7 @@ namespace ManicOceanic.WEB
 
       services.AddDefaultIdentity<Customer>()
           .AddDefaultUI(UIFramework.Bootstrap4)
+          .AddRoles<IdentityRole>()
           .AddEntityFrameworkStores<MOContext>();
 
       services.AddScoped<IOrderService, OrderService>();

@@ -1,0 +1,35 @@
+﻿@model List<ManicOceanic.WEB.Models.RoleCheckBoxViewModel>
+
+@{
+  ViewData["Title"] = "View";
+}
+
+<h1>Assign Roles</h1>
+
+<form asp-controller="Accounts" asp-action="AssignRoles" method="post">
+  <dl class="row">
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model[1].customer.Email)
+    </dt>
+    <dd class="col-sm-10">
+      @Html.DisplayFor(model => model[1].customer.Email)
+    </dd>
+
+  </dl>
+
+  @{
+    //for (int i = 0; i < Model.IdentityRoles.Count; i++)
+
+    for (int i = 0; i < Model.Count; i++)
+    {
+      <input asp-for="@Model[i].Selected" type="checkbox">
+      <label input asp-for="@Model[i].RoleName">@Model[i].RoleName</label>
+      <input input asp-for="@Model[i].RoleName" type="hidden">
+      <input input asp-for="@Model[i].RoleId" type="hidden">
+      <input input asp-for="@Model[i].customer.Email)" type="hidden">
+    }
+  }
+  <div>
+    <input id="SubmitAssignRoles" type="submit" value="submit" />
+  </div>
+</form>
