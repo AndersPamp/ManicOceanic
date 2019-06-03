@@ -15,7 +15,7 @@
         @Html.DisplayNameFor(model => model.Price)
     </th>
     <th>
-        @Html.DisplayNameFor(model => model.ImageUrl)
+        @Html.DisplayNameFor(model => model.ProductNumber)
     </th>
     <th>
         @Html.DisplayNameFor(model => model.Stock)
@@ -39,7 +39,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
+                @Html.DisplayFor(modelItem => item.ProductNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Stock)
@@ -52,8 +52,12 @@
             </td>
             <td>
                 <a asp-action="EditProduct" asp-route-id="@item.ProductNumber">Edit</a> |
-                <a asp-controller="Product" asp-action="ShowDetail" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-controller="Product" asp-action="ShowDetail" asp-route-productNumber="@item.ProductNumber">Details</a> |
+                @Html.ActionLink("Delete", "ProductDelete", new {productNumber = item.ProductNumber}, new
+                {
+                    onclick = "return confirm('Are you sure you want to delete: " + @item.Name +
+                              " with product number: " + @item.ProductNumber + "?');"
+                })
             </td>
         </tr>
     }
