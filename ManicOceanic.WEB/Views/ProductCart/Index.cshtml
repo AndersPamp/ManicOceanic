@@ -10,6 +10,8 @@
 
 <h1 class="text-center">Shopping cart</h1><br>
 
+<h5 class="fish-exist"></h5>
+
 <div id="products"></div>
 
 
@@ -92,12 +94,21 @@
                         <option value="Schenker">Schenker</option>
                     </select>
                 </th>
+                <th></th>
+                
             </tr>
             <tr>
                 <th></th>
                 <th></th>
-                <th></th>
-                <th></th>
+                <th>Payment method: </th>
+                <th id="payment">
+                    <select id="payment1" name="payment1">
+                        <option value="Klarna">Klarna</option>
+                        <option value="Credit-Card">Credit Card</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Invoice">Invoice</option>
+                    </select>
+                </th>
                 <th>To pay: </th>
                 <th id="to-pay" style="color: brown">@total Kr</th>
             </tr>
@@ -106,14 +117,19 @@
     <div class="buttons">
         <a class="btn btn-primary pull-right" href='javascript:history.go(-1)'>Continue shopping</a>
         @*<a class="btn btn-primary pull-right" asp-action="Index" asp-controller="Home" role="button">Continue shopping</a>*@
-        @if (SignInManager.IsSignedIn(User))
+        @if (SignInManager.IsSignedIn(User) && Model != null)
         {
             var userId = IdentityExtensions.GetUserId(User.Identity);
-            
+            <div hidden="hide" id="userId">@userId</div>
+
             <div class="btn btn-success pull-right">
-                @Html.ActionLink("Proceed to payment", "CreateOrder", "Order", new { id = userId },
-                    new { onclick = "return confirm ('Are you sure you want to create an order ?')" })
+                @*@Html.ActionLink("Proceed to payment", "CreateOrder", "Order", new { id = userId },
+                    new { onclick = "return confirm ('Are you sure you want to create an order ?')" })*@
+                <button class="proceed" onclick="CreateOrder()">Proceed to payment</button>
             </div>
+        }else if (SignInManager.IsSignedIn(User) && Model == null)
+        {
+            <h5 style="color: green;float: right">Your cart is empty</h5>
         }
         else
         {
@@ -164,20 +180,6 @@
 
 </div>
 
-<style>
-    .cart-quantity {
-    }
-
-    .counting {
-    }
-
-    .product-id {
-    }
-
-    .quantity-change {
-    }
-</style>
-
 @section Scripts
 {
     <script>
@@ -222,13 +224,68 @@
 
           }
 
+                });
+            });
+            
         });
+        function CreateOrder() {
+            var paymentOption = document.getElementById("payment1").value;
+            var shippingOption = document.getElementById("shipping1").value;
+            var userId = document.getElementById("userId").innerHTML;
+            console.log(paymentOption);
+            console.log(shippingOption);
+            console.log(userId);
 
-        console.log(quantity);
-        console.log(productId);
+            var requestedData = {
+                id: userId,
+                paymentOption: paymentOption,
+                shippingOption: shippingOption
+            };
 
-      });
-    });
+            $.ajax({
+                url: '/Order/CreateOrder',
+                type: 'POST',
+                data: JSON.stringify(requestedData),
+                //dataType: 'json',
+                contentType: 'application/json',
+                error: function (xhr) {
+                    alert('Error: ' + xhr.statusText);
+                },
+                success: function () {
+                    window.setTimeout(function () { location.reload() }, 5);
 
-  </script>
+                }
+
+            });
+        }
+        
+    </script>
+    
+    @*<script>
+        function checkIfFishExist() {
+            var cartList = @Model;
+            var fishExist = false;
+            for (var i = 0; i < cartList.length ; i++) {
+                if (cartList[i].Product.CategoryId == 1 || cartList[i].Product.CategoryId == 2) {
+                    fishExist = true;
+                }
+            }
+            if (fishExist) {
+                $(".fish-exist").innerHTML = "fish exist!";
+            }
+        }
+    </script>*@
 }
+<style>
+    .cart-quantity {
+    }
+
+    .counting {
+    }
+
+    .product-id {
+    }
+
+    .quantity-change {
+    }
+</style>

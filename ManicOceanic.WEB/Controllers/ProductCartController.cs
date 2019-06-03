@@ -27,10 +27,17 @@ namespace ManicOceanic.WEB.Controllers
         return View();
       }
 
-      var cartList = LoadSession();
-
-      return View(cartList);
-    }
+        public IActionResult Index()
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(strCart)))
+            {
+                return View();
+            }
+            var cartList = LoadSession();
+            if (cartList.Count <=0 )
+            {
+                return View(); 
+            }
 
     public IActionResult OrderNow(Guid? id)
     {
@@ -95,11 +102,15 @@ namespace ManicOceanic.WEB.Controllers
         return View("Index", cartList);
       }
 
-      if (string.IsNullOrEmpty(HttpContext.Session.GetString(strCart)))
-      {
-        return View("Index");
-      }
-      var chosenProduct = cartList.FirstOrDefault(x => x.Product.Id == id);
+            if (chosenProduct != null)
+            {
+                if (cartList.Count == 1)
+                {
+                    cartList.Remove(chosenProduct);
+                    SaveToSession(cartList);
+                    return View("Index");
+                }
+                cartList.Remove(chosenProduct);
 
       if (chosenProduct != null)
       {
@@ -107,11 +118,14 @@ namespace ManicOceanic.WEB.Controllers
 
         SaveToSession(cartList);
 
-        return View("Index", cartList);
-      }
-
-      return View("Index", cartList);
-    }
+            return View("Index",cartList);
+        }
+        
+        [HttpPost]
+        public IActionResult ChangeQuantity([FromBody]Data data)           //
+        {
+            var quantity = data.Quantity;
+            var productId = data.Id;
 
     public IActionResult ChoseShipping(string shippingName)
     {
