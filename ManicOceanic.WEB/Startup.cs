@@ -14,6 +14,7 @@ using ManicOceanic.DOMAIN.Services.Interfaces;
 using ManicOceanic.DOMAIN.Services;
 using ManicOceanic.DOMAIN.Repositories.Interfaces;
 using ManicOceanic.DATA.Data.Repositories;
+using System.Globalization;
 using System;
 
 namespace ManicOceanic.WEB
@@ -74,6 +75,7 @@ namespace ManicOceanic.WEB
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
+        var cultureInfo = new CultureInfo("en-US");
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
