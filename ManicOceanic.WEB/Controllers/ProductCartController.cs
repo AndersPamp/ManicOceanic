@@ -29,8 +29,11 @@ namespace ManicOceanic.WEB.Controllers
             {
                 return View();
             }
-
             var cartList = LoadSession();
+            if (cartList.Count <=0 )
+            {
+                return View(); 
+            }
 
             return View(cartList);
         }
@@ -110,6 +113,12 @@ namespace ManicOceanic.WEB.Controllers
 
             if (chosenProduct != null)
             {
+                if (cartList.Count == 1)
+                {
+                    cartList.Remove(chosenProduct);
+                    SaveToSession(cartList);
+                    return View("Index");
+                }
                 cartList.Remove(chosenProduct);
 
                 SaveToSession(cartList);
@@ -118,13 +127,6 @@ namespace ManicOceanic.WEB.Controllers
             }
 
             return View("Index",cartList);
-        }
-
-        public IActionResult ChoseShipping(string shippingName)
-        {
-            var shippingChoice = new Shipping();
-            
-            return View("Index");
         }
         
         [HttpPost]
