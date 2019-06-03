@@ -16,6 +16,7 @@ using ManicOceanic.DOMAIN.Repositories.Interfaces;
 using ManicOceanic.DATA.Data.Repositories;
 using System.Globalization;
 using System;
+using System.Threading.Tasks;
 
 namespace ManicOceanic.WEB
 {
@@ -28,8 +29,37 @@ namespace ManicOceanic.WEB
 
     public IConfiguration Configuration { get; }
 
-    // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services)
+        private static async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            ///////////////////
+            var _userManager = serviceProvider.GetRequiredService<UserManager<Customer>>();
+            Customer iu = await _userManager.FindByEmailAsync("admin@admin.se");
+            if (iu == null)
+            {
+                iu = new Customer();
+                iu.Email = "admin@admin.se";
+                iu.UserName = "admin@admin.se";
+                iu.SocialSecurityNumber = "123123123123";
+                var identityResult = await _userManager.CreateAsync(iu, "Secret1234-");
+                await _userManager.UpdateAsync(iu);
+            }
+            ///////////////////
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            if (!await roleManager.RoleExistsAsync("Admin"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+
+            if (!await roleManager.RoleExistsAsync("Manager"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("Manager"));
+            }
+            await _userManager.AddToRoleAsync(iu, "Admin");
+        }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
     {
       services.Configure<CookiePolicyOptions>(options =>
       {
@@ -59,6 +89,7 @@ namespace ManicOceanic.WEB
 
       services.AddDefaultIdentity<Customer>()
           .AddDefaultUI(UIFramework.Bootstrap4)
+          .AddRoles<IdentityRole>()
           .AddEntityFrameworkStores<MOContext>();
 
       services.AddScoped<IOrderService, OrderService>();
@@ -73,7 +104,7 @@ namespace ManicOceanic.WEB
         }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
     {
         var cultureInfo = new CultureInfo("en-US");
       if (env.IsDevelopment())
@@ -99,6 +130,7 @@ namespace ManicOceanic.WEB
                   name: "default",
                   template: "{controller=Home}/{action=Index}/{id?}");
       });
-    }
+            CreateRoles(serviceProvider).Wait();
+        }
   }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ManicOceanic.DATA.Data;
 using ManicOceanic.DOMAIN.Services.Interfaces;
 using ManicOceanic.WEB.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ManicOceanic.WEB.Controllers
@@ -32,6 +33,7 @@ namespace ManicOceanic.WEB.Controllers
             return View(productsList);
         }
 
+        [Authorize(Roles="Admin")]
         public IActionResult FreshWaterFish()
         {
             var productsList = moContext.Products.Where(x => x.CategoryId == 2).ToList();
