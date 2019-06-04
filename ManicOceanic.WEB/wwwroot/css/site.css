@@ -48,6 +48,10 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+    
+}
+#myOwnRule {
+    padding-top: 25%;
 }
 .footer {
   position: absolute;
@@ -62,3 +66,4 @@ body {
 .search-field {
     float: left;
 }
+
