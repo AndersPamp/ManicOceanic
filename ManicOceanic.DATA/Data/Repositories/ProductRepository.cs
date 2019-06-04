@@ -73,5 +73,10 @@ namespace ManicOceanic.DATA.Data.Repositories
                 .ToListAsync();
 
         }
+        public async Task<Product> GetProductByIdAsync(Guid id)
+        {
+            var product = await moContext.Products.FirstOrDefaultAsync(p => p.Id == id);
+            return product;
+        }
     }
 }

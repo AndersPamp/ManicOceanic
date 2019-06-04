@@ -9,18 +9,19 @@ using System.Data.Entity.Migrations.Sql;
 using System.Linq;
 using System.Text.Encodings.Web;
 using ManicOceanic.DOMAIN.Entities.Sales;
+using ManicOceanic.DOMAIN.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace ManicOceanic.WEB.Controllers
 {
     public class ProductCartController : Controller  
     {
-        private readonly MOContext _dbContext;
-        private string strCart = "Cart";
+        private readonly IProductService _productService;
+        private string strCart = "CartItem";
 
-        public ProductCartController(MOContext dbContext)
+        public ProductCartController(IProductService productService)
         {
-            _dbContext = dbContext;
+            _productService = productService;
         }
 
         public IActionResult Index()
@@ -38,7 +39,7 @@ namespace ManicOceanic.WEB.Controllers
             return View(cartList);
         }
 
-        public IActionResult OrderNow(Guid? id)
+        public IActionResult OrderNow(Guid id)
         {
             if(id==null)
             {
@@ -48,13 +49,13 @@ namespace ManicOceanic.WEB.Controllers
 
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(strCart)))
             {
-                var newProduct = _dbContext.Products.Find(id);
-
+                var newProduct = _productService.GetProductByIdAsync(id).Result;
+                
                 if (newProduct.Stock>0)
                 {
-                    List<Cart> IsCart = new List<Cart>
+                    List<CartItem> IsCart = new List<CartItem>
                     {
-                        new Cart(_dbContext.Products.Find(id),1)
+                        new CartItem(newProduct,1)
                     };
                     HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(IsCart));
                 }
@@ -72,25 +73,20 @@ namespace ManicOceanic.WEB.Controllers
 
                     SaveToSession(cartList);
 
-                    //return View("Index", cartList);
                     return Redirect("/ProductCart/index");
                 }
                 else
                 {
-                    var product = _dbContext.Products.Find(id);
+                    var product = _productService.GetProductByIdAsync(id).Result;
 
-                    var stock = product.Stock;
-                    if (stock>0)
+                    if (product.Stock > 0)
                     {
-                        cartList.Add(new Cart(product, 1));
+                        cartList.Add(new CartItem(product, 1));
 
                         SaveToSession(cartList);
                     }
                 }
             }
-
-            //var cartList1 = LoadSession();
-            //return View("Index",cartList1);
 
             return Redirect("/ProductCart/index");
         }
@@ -130,7 +126,7 @@ namespace ManicOceanic.WEB.Controllers
         }
         
         [HttpPost]
-        public IActionResult ChangeQuantity([FromBody]Data data)           //
+        public IActionResult ChangeQuantity([FromBody]Data data)           
         {
             var quantity = data.Quantity;
             var productId = data.Id;
@@ -145,25 +141,20 @@ namespace ManicOceanic.WEB.Controllers
             }
 
             SaveToSession(cartList);
-
-            //return RedirectToAction(nameof(Index));
-            //return View("Index", cartList);
             return Redirect("/ProductCart/index");
         }
 
-        public void SaveToSession(List<Cart> listOfCarts)
+        public void SaveToSession(List<CartItem> listOfCarts)
         {
             HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(listOfCarts));
         }
 
-        public List<Cart> LoadSession()
+        public List<CartItem> LoadSession()
         {
             var strList = HttpContext.Session.GetString(strCart);
-            var cartList = JsonConvert.DeserializeObject<List<Cart>>(strList);
+            var cartList = JsonConvert.DeserializeObject<List<CartItem>>(strList);
             return cartList;
         }
-
-
     }
 
     public class Data

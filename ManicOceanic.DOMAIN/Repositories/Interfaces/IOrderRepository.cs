@@ -11,5 +11,6 @@ namespace ManicOceanic.DOMAIN.Repositories.Interfaces
 
         void UpdateOrder(Order order);
         Task<Order> GetOrderByOrderNumberAsync(int orderNumber);
+        Task<int> GenerateOrderNumberAsync();
     }
 }

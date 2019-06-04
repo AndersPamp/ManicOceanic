@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ManicOceanic.DOMAIN.Entities;
 using ManicOceanic.DOMAIN.Repositories.Interfaces;
 using ManicOceanic.DOMAIN.Services.Interfaces;
@@ -38,6 +39,11 @@ namespace ManicOceanic.DOMAIN.Services
             customerRepository.DeleteCustomer(existingCustomer);
             await unitOfWork.SaveChangesAsync();
             return existingCustomer;
+        }
+
+        public async Task<Customer> GetCustomerNameByIdAsync(string customerId)
+        {
+            return await customerRepository.GetCustomerNameByIdAsync(customerId);
         }
     }
 }

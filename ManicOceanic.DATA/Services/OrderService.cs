@@ -38,5 +38,10 @@ namespace ManicOceanic.DOMAIN.Services
             await unitOfWork.SaveChangesAsync();
             return order;
         }
+
+        public async Task<int> GenerateOrderNumberAsync()
+        {
+            return await orderRepository.GenerateOrderNumberAsync();
+        }
     }
 }

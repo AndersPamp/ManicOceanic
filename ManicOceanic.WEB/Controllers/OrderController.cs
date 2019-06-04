@@ -14,8 +14,17 @@ namespace ManicOceanic.WEB.Controllers
 {
     public class OrderController : Controller
     {
-        private string strCart = "Cart";
-        private readonly IOrderService orderService;
+        private string strCart = "CartItem";
+        private readonly IOrderService _orderService;
+        private readonly IShippingService _shippingService;
+        private readonly ICustomerService _customerService;
+
+        public OrderController(IOrderService orderService, IShippingService shippingService,ICustomerService customerService)
+        {
+            _orderService = orderService;
+            _shippingService = shippingService;
+            _customerService = customerService;
+        }
 
         public IActionResult Order()
         {
@@ -30,17 +39,16 @@ namespace ManicOceanic.WEB.Controllers
             var total = cartList.Sum(x => x.Quantity * x.Product.Price);
             var tax = ((25 * total) / 100);
 
-            var newOrder = new Order
-            {
-                CustomerId = Guid.Parse(customerId),
-                OrderDate = DateTime.Now,
-                PaymentType = CheckPayment(data.PaymentOption),
-                //Shipping = CheckShipping(data.ShippingOption),
-                Tax = tax,
-                TotalCost = total,
-                //OrderNumber = 1,
-                //CustomerName = "wade",
-            };
+
+            var CustomerId1 = Guid.Parse(customerId);
+            var OrderDate = DateTime.Now;
+            var PaymentType = CheckPayment(data.PaymentOption);
+            var Shipping = CheckShipping(data.ShippingOption);
+                //Tax = tax,
+                //TotalCost = total,
+                var OrderNumber = _orderService.GenerateOrderNumberAsync().Result;
+                var CustomerName = _customerService.GetCustomerNameByIdAsync(customerId).Result.FirstName;
+            
 
 
             return View("Order");
@@ -48,15 +56,15 @@ namespace ManicOceanic.WEB.Controllers
 
 
 
-        public void SaveToSession(List<Cart> listOfCarts)
+        public void SaveToSession(List<CartItem> listOfCarts)
         {
             HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(listOfCarts));
         }
 
-        public List<Cart> LoadSession()
+        public List<CartItem> LoadSession()
         {
             var strList = HttpContext.Session.GetString(strCart);
-            var cartList = JsonConvert.DeserializeObject<List<Cart>>(strList);
+            var cartList = JsonConvert.DeserializeObject<List<CartItem>>(strList);
             return cartList;
         }
 
@@ -79,26 +87,21 @@ namespace ManicOceanic.WEB.Controllers
             return EPayment.Invoice;
         }
 
-        private Shipping CheckShipping(string shippingOption)
+        public Shipping CheckShipping(string shippingOption)
         {
-            var shipping = new Shipping();
             switch (shippingOption)
             {
                 case "UPS":
-                    shipping.ShippingType = EShipping.Ups;
-                    shipping.Price = 165;
-                    break;
+                    return  _shippingService.GetShippingByIdAsync(1).Result;
                 case "Postnord":
-                    shipping.ShippingType = EShipping.Postnord;
-                    shipping.Price = 49;
-                    break;
+                    return  _shippingService.GetShippingByIdAsync(2).Result;
                 case "Schenker":
-                    shipping.ShippingType = EShipping.Schenker;
-                    shipping.Price = 145;
-                    break;
+                    return  _shippingService.GetShippingByIdAsync(3).Result;
             }
-            return shipping;
+
+            return null;
         }
+
 
         public class OrderData
         {

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using ManicOceanic.DATA.Data;
 using ManicOceanic.DOMAIN.Entities.Sales;
 using ManicOceanic.DOMAIN.Repositories.Interfaces;
@@ -36,6 +37,22 @@ namespace ManicOceanic.DATA.Data.Repositories
         public async Task<Order> GetOrderByOrderNumberAsync(int orderNumber)
         {
             return await moContext.Orders.FirstOrDefaultAsync(o => o.OrderNumber == orderNumber);
+        }
+
+        public async Task<int> GenerateOrderNumberAsync()
+        {
+            var number = 101;
+            var orderNbr = moContext.Orders.Max(c => c.OrderNumber);
+
+            if (orderNbr==0)
+            {
+                return number;
+            }
+            else
+            {
+                 orderNbr += 1;
+                 return orderNbr;
+            }
         }
     }
 }

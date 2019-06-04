@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ManicOceanic.DOMAIN.Entities.Products;
@@ -83,6 +84,11 @@ namespace ManicOceanic.DOMAIN.Services
         public async Task<IEnumerable<Product>> GetProductBySearchAsync(string searchWord)
         {
             return await productRepository.GetProductBySearchAsync(searchWord);
+        }
+
+        public async Task<Product> GetProductByIdAsync(Guid id)
+        {
+            return await productRepository.GetProductByIdAsync(id);
         }
     }
 }
