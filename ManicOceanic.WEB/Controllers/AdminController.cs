@@ -6,12 +6,13 @@ using AutoMapper;
 using ManicOceanic.WEB.Dto;
 using ManicOceanic.WEB.Extensions;
 using ManicOceanic.DOMAIN.Entities.Products;
-using System;
 using ManicOceanic.DOMAIN.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ManicOceanic.WEB.Controllers
 {
-  public class AdminController : Controller
+    [Authorize(Roles = "Admin")]
+    public class AdminController : Controller
   {
     private readonly IProductService productService;
     private readonly ICategoryService categoryService;

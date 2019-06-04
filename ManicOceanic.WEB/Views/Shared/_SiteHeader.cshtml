@@ -11,19 +11,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index" asp-route-id="1">Fish</a>
+                            <a class="nav-link text-dark" asp-controller="Category" asp-action="Index">Fish</a>
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="FishFood" asp-route-id="2">Food</a>
+                            <a class="nav-link text-dark" asp-controller="Product" asp-action="FishFood">Food</a>
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Aquarium" asp-route-id="3">Other</a>
+                            <a class="nav-link text-dark" asp-controller="Product" asp-action="Aquarium">Aquarium</a>
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ProductCart" asp-action="Index" asp-route-id="4">Your Cart</a>
+                            <a class="nav-link text-dark" asp-controller="ProductCart" asp-action="Index">Your Cart</a>
 
                         </li>
 
@@ -32,11 +32,12 @@
                                 <partial name="_LoginPartial" />
                             </div>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index" asp-route-id="6">Admin</a>
-
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index" asp-route-id="">Admin</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
