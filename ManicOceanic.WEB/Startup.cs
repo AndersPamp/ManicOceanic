@@ -31,7 +31,6 @@ namespace ManicOceanic.WEB
 
         private static async Task CreateRoles(IServiceProvider serviceProvider)
         {
-            ///////////////////
             var _userManager = serviceProvider.GetRequiredService<UserManager<Customer>>();
             Customer iu = await _userManager.FindByEmailAsync("admin@admin.se");
             if (iu == null)
@@ -43,7 +42,6 @@ namespace ManicOceanic.WEB
                 var identityResult = await _userManager.CreateAsync(iu, "Secret1234-");
                 await _userManager.UpdateAsync(iu);
             }
-            ///////////////////
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
             if (!await roleManager.RoleExistsAsync("Admin"))
