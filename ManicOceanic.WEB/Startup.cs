@@ -16,6 +16,7 @@ using ManicOceanic.DOMAIN.Repositories.Interfaces;
 using ManicOceanic.DATA.Data.Repositories;
 using System.Globalization;
 using System;
+using ManicOceanic.DATA.Services;
 using System.Threading.Tasks;
 
 namespace ManicOceanic.WEB
@@ -99,7 +100,9 @@ namespace ManicOceanic.WEB
       services.AddScoped<IProductRepository, ProductRepository>();
       services.AddScoped<ICustomerRepository, CustomerRepository>();
       services.AddScoped<IOrderRepository, OrderRepository>();
-        }
+      services.AddScoped<IShippingService, ShippingService>();
+      services.AddScoped<IShippingRepository, ShippingRepository>();
+    }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)

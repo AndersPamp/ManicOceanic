@@ -14,13 +14,11 @@ namespace ManicOceanic.DATA.Data.Repositories
         {
             this._moContext = moContext;
         }
-        public Task<Shipping> GetShippingByIdAsync(int shippingId)
+        public async Task<Shipping> GetShippingByIdAsync(int shippingId)
         {
-            var shippings = _moContext.Shippings.ToList();
-            var shipping = shippings.FirstOrDefault(x => x.Id == shippingId);
-
-            return shipping;
-
+            var shippingList = await _moContext.Shippings.ToListAsync();
+            var shipping =  shippingList.FirstOrDefault(x => x.Id == shippingId);
+            return  shipping;
         }
     }
 }

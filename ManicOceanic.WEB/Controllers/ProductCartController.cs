@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ManicOceanic.DOMAIN.Entities.Sales;
+using ManicOceanic.DOMAIN.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace ManicOceanic.WEB.Controllers
 {
@@ -17,15 +19,13 @@ namespace ManicOceanic.WEB.Controllers
 
     public ProductCartController(MOContext dbContext)
     {
-      _dbContext = dbContext;
-    }
+        private readonly IProductService _productService;
+        private string strCart = "CartItem";
 
-    public IActionResult Index()
-    {
-      if (string.IsNullOrEmpty(HttpContext.Session.GetString(strCart)))
-      {
-        return View();
-      }
+        public ProductCartController(IProductService productService)
+        {
+            _productService = productService;
+        }
 
         public IActionResult Index()
         {
@@ -51,11 +51,15 @@ namespace ManicOceanic.WEB.Controllers
       {
         var newProduct = _dbContext.Products.Find(id);
 
-        if (newProduct.Stock > 0)
-        {
-          List<Cart> IsCart = new List<Cart>
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(strCart)))
+            {
+                var newProduct = _productService.GetProductByIdAsync(id).Result;
+                
+                if (newProduct.Stock>0)
+                {
+                    List<CartItem> IsCart = new List<CartItem>
                     {
-                        new Cart(_dbContext.Products.Find(id),1)
+                        new CartItem(newProduct,1)
                     };
           HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(IsCart));
         }
@@ -71,21 +75,22 @@ namespace ManicOceanic.WEB.Controllers
         {
           cartList.FirstOrDefault(x => x.Product.Id == id).Quantity++;
 
-          SaveToSession(cartList);
+                    return Redirect("/ProductCart/index");
+                }
+                else
+                {
+                    var product = _productService.GetProductByIdAsync(id).Result;
 
-          return Redirect("/ProductCart/index");
-        }
-        else
-        {
-          var product = _dbContext.Products.Find(id);
+                    if (product.Stock > 0)
+                    {
+                        cartList.Add(new CartItem(product, 1));
 
           var stock = product.Stock;
           if (stock > 0)
           {
             cartList.Add(new Cart(product, 1));
 
-            SaveToSession(cartList);
-          }
+            return Redirect("/ProductCart/index");
         }
       }
 
@@ -122,7 +127,7 @@ namespace ManicOceanic.WEB.Controllers
         }
         
         [HttpPost]
-        public IActionResult ChangeQuantity([FromBody]Data data)           //
+        public IActionResult ChangeQuantity([FromBody]Data data)           
         {
             var quantity = data.Quantity;
             var productId = data.Id;
@@ -140,23 +145,21 @@ namespace ManicOceanic.WEB.Controllers
       var quantity = data.Quantity;
       var productId = data.Id;
 
-      var cartList = LoadSession();
+            SaveToSession(cartList);
+            return Redirect("/ProductCart/index");
+        }
 
-      var product = cartList.FirstOrDefault(x => x.Product.Id == productId);
+        public void SaveToSession(List<CartItem> listOfCarts)
+        {
+            HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(listOfCarts));
+        }
 
-      if (product != null)
-      {
-        product.Quantity = quantity;
-      }
-
-      SaveToSession(cartList);
-
-      return Redirect("/ProductCart/index");
-    }
-
-    public void SaveToSession(List<Cart> listOfCarts)
-    {
-      HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(listOfCarts));
+        public List<CartItem> LoadSession()
+        {
+            var strList = HttpContext.Session.GetString(strCart);
+            var cartList = JsonConvert.DeserializeObject<List<CartItem>>(strList);
+            return cartList;
+        }
     }
 
     public List<Cart> LoadSession()

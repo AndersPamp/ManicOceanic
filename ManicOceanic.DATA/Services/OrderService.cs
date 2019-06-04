@@ -34,9 +34,18 @@ namespace ManicOceanic.DOMAIN.Services
     public async Task<Order> UpdateOrderAsync(Order order)
     {
 
-      orderRepository.UpdateOrder(order);
-      await unitOfWork.SaveChangesAsync();
-      return order;
+        public async Task<Order> UpdateOrderAsync(Order order)
+        {
+  
+            orderRepository.UpdateOrder(order);
+            await unitOfWork.SaveChangesAsync();
+            return order;
+        }
+
+        public async Task<int> GenerateOrderNumberAsync()
+        {
+            return await orderRepository.GenerateOrderNumberAsync();
+        }
     }
   }
 }
