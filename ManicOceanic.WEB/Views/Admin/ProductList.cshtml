@@ -3,31 +3,31 @@
 <h1>Products</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="CreateProduct">Create New</a>
 </p>
 <table class="table">
 <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Stock)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UnitOfMeasure)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </th>
-        <th></th>
-    </tr>
+<tr>
+    <th>
+        @Html.DisplayNameFor(model => model.Name)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.Price)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.ProductNumber)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.Stock)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.UnitOfMeasure)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.CategoryId)
+    </th>
+    <th></th>
+</tr>
 </thead>
     <tbody>
     @foreach (var item in Model) {
@@ -51,11 +51,11 @@
                 @Html.DisplayFor(modelItem => item.CategoryId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-
+                <a asp-action="EditProduct" asp-route-id="@item.ProductNumber">Edit</a> |
+                <a asp-controller="Product" asp-action="ShowDetail" asp-route-productNumber="@item.ProductNumber">Details</a> |
                 @Html.ActionLink("Delete", "ProductDelete", new {productNumber = item.ProductNumber}, new
                 {
-                    onclick = "return confirm('Are sure wants to delete: " + @item.Name +
+                    onclick = "return confirm('Are you sure you want to delete: " + @item.Name +
                               " with product number: " + @item.ProductNumber + "?');"
                 })
             </td>
