@@ -43,7 +43,7 @@ namespace ManicOceanic.WEB.Controllers
             };
 
 
-            return Redirect("/Order/Order");
+            return View("Order");
         }
 
 
