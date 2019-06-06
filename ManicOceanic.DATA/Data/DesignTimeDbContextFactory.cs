@@ -16,7 +16,8 @@ namespace ManicOceanic.DATA.Data
                 .Build();
             var builder = new DbContextOptionsBuilder<MOContext>();
             var connectionString =
-                "Server=tcp:ec-teams.database.windows.net,1433;Initial Catalog=ManicOceanic-1;Persist Security Info=False;User ID=ecteam;Password=Ec@181818;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                "Server=LARS-DATOR\\MSSQLSERVER01;Database=MO-Test;Integrated Security=true;";
+            //"Server=tcp:ec-teams.database.windows.net,1433;Initial Catalog=ManicOceanic-1;Persist Security Info=False;User ID=ecteam;Password=Ec@181818;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             builder.UseSqlServer(connectionString);
             return new MOContext(builder.Options);
         }
