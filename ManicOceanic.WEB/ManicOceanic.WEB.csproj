@@ -28,6 +28,13 @@
 
 
   <ItemGroup>
+    <None Include="wwwroot\Images\delbert-pagayona-585320-unsplash %281%29.jpg" />
+    <None Include="wwwroot\Images\ManicLogo.jpg" />
+    <None Include="wwwroot\Images\saltwaterfish.jpg" />
+  </ItemGroup>
+
+
+  <ItemGroup>
     <ProjectReference Include="..\ManicOceanic.DATA\ManicOceanic.DATA.csproj" />
     <ProjectReference Include="..\ManicOceanic.DOMAIN\ManicOceanic.DOMAIN.csproj" />
   </ItemGroup>

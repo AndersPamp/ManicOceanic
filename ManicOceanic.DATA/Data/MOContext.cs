@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ManicOceanic.DATA.Data
 {
-  public class MOContext : IdentityDbContext<Customer>
-  {
+    public class MOContext : IdentityDbContext<Customer>
+    {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -31,7 +31,6 @@ namespace ManicOceanic.DATA.Data
                 .HasAlternateKey(c => c.CustomerNumber);
             modelBuilder.Entity<Customer>()
                 .HasAlternateKey(u => u.UserName);
-            
 
             // Administrator constraints
             modelBuilder.Entity<Administrator>()
@@ -43,8 +42,16 @@ namespace ManicOceanic.DATA.Data
             modelBuilder.Entity<Order>()
                 .HasAlternateKey(o => o.OrderNumber);
 
-            
+            // Product
+            modelBuilder.Entity<Product>()
+                .HasOne<Category>(p => p.Category)
+                .WithMany(c => c.Products)
+                .HasForeignKey(p => p.CategoryId);
 
+            modelBuilder.Entity<Category>()
+                .HasOne(c => c.Parent)
+                .WithMany()
+                .HasForeignKey(c => c.CategoryId);
 
             base.OnModelCreating(modelBuilder);
 

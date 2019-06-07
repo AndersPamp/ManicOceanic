@@ -1,0 +1,16 @@
+﻿@model ManicOceanic.DOMAIN.Entities.Products.Product
+@{
+    ViewData["Title"] = "ProductDelete";
+}
+
+<h1>Product deleted</h1>
+
+<h4>@Model.Name</h4>
+
+<p>@Model.ProductNumber</p>
+
+<a asp-area="" asp-controller="Admin" asp-action="ProductList" asp-route-id="" class="list-group-item list-group-item-action">Back to Manage products</a>
+
+
+
+

@@ -479,8 +479,8 @@ mark,
 }
 
 .img-fluid {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;   
+    height: auto;
 }
 
 .img-thumbnail {
@@ -5810,6 +5810,7 @@ button.close {
 
 .carousel {
   position: relative;
+
 }
 
 .carousel-inner {
