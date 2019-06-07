@@ -5,34 +5,31 @@
 
 <h1>Fresh Water Fish</h1>
 
-<style>
-    .product-grid {
-        display: grid;
-        grid: auto / repeat(4, 1fr);
-        grid-gap: 40px 20px;
-    }
+<div class="container">
+  
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="myProductArea">
 
-    .grid-item {
-        justify-self: center;
-        align-self: center;
-        text-align: center;
-    }
-</style>
+                <div class="myProductImg">
+                    <a asp-controller="Product" asp-action="ShowDetail" asp-route-productNumber="@product.ProductNumber"><img src="@product.ImageUrl" class="myImg" /></a>
+                </div>
 
-<div class="product-grid">
-    @foreach (var product in Model)
-    {
-        <div class="grid-item">
-            <a asp-controller="Product" asp-action="ShowDetail" asp-route-productNumber="@product.ProductNumber"><img src="@product.ImageUrl" width="200px" /></a>
-            @*<img src="@product.ImageUrl" width="200px" />*@
-            <div>@product.Name</div>
-            <div>@product.Price kr</div>
-            <div class="btn-cart" data-product-Count="@product.Stock">
-                @Html.ActionLink("Add to cart", "OrderNow", "ProductCart", new { id = product.Id }, null)
+
+                <div class="myProductInfo">
+                    <div>@product.Name</div>
+                    <div>@product.Price kr</div>
+                    <div class="btn-cart" data-product-Count="@product.Stock">
+                        @Html.ActionLink("Add to cart", "OrderNow", "ProductCart", new { id = product.Id }, null)
+                    </div>
+                </div>
             </div>
 
-        </div>
-    }
+        }
+
+    </div>
+ 
 </div>
 
 @section Scripts
