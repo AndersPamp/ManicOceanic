@@ -57,16 +57,16 @@ namespace ManicOceanic.WEB.Controllers
                 
                 if (newProduct.Stock>0)
                 {
-                    List<CartItem> IsCart = new List<CartItem>
+                    List<CartItem> isCart = new List<CartItem>
                     {
                         new CartItem(newProduct,1)
                     };
-          HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(IsCart));
-        }
-      }
-      else
-      {
-        var cartList = LoadSession();
+                    HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(isCart));
+                }
+            }
+            else
+            {
+                var cartList = LoadSession();
 
         var chosenProduct = cartList.FirstOrDefault(x => x.Product.Id == id);
 

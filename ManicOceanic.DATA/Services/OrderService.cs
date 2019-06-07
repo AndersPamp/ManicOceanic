@@ -46,6 +46,19 @@ namespace ManicOceanic.DOMAIN.Services
         {
             return await orderRepository.GenerateOrderNumberAsync();
         }
+
+        public EPayment GetPaymentMethod(string paymentOption)
+        {
+            return orderRepository.GetPaymentMethod(paymentOption);
+        }
+
+        public async Task<OrderLine> CreateOrderLinesAsync(OrderLine orderLine)
+        {
+            orderRepository.CreateOrderLine(orderLine);
+            await unitOfWork.SaveChangesAsync();
+            return orderLine;
+            
+        }
     }
   }
 }

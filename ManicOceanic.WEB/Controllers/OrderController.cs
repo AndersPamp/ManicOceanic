@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ManicOceanic.DOMAIN.Entities.Sales;
+﻿using ManicOceanic.DOMAIN.Entities.Sales;
 using ManicOceanic.DOMAIN.Services.Interfaces;
 using ManicOceanic.WEB.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ManicOceanic.WEB.Controllers
 {
@@ -36,79 +34,56 @@ namespace ManicOceanic.WEB.Controllers
         {
             var cartList = LoadSession();
             var customerId = data.Id;
+            var orderDate = DateTime.Now;
+            var paymentType = _orderService.GetPaymentMethod(data.PaymentOption);
+            var shippingId = _shippingService.GetShippingId(data.ShippingOption);
             var total = cartList.Sum(x => x.Quantity * x.Product.Price);
             var tax = ((25 * total) / 100);
+            var orderNumber = _orderService.GenerateOrderNumberAsync().Result;
+            var customerName = _customerService.GetCustomerNameByIdAsync(customerId).Result.FirstName;
 
+            var newOrder = _orderService.CreateOrderAsync(new Order
+            {
+                CustomerId = Guid.Parse(customerId),
+                CustomerName = customerName,
+                OrderDate = orderDate,
+                OrderNumber = orderNumber,
+                PaymentType = paymentType,
+                ShippingId = shippingId,
+                Tax = tax,
+                TotalCost = total + _shippingService.GetShippingPrice(shippingId)
+             });
+            var orderId = newOrder.Result.Id;
 
-            var CustomerId1 = Guid.Parse(customerId);
-            var OrderDate = DateTime.Now;
-            var PaymentType = CheckPayment(data.PaymentOption);
-            var Shipping = CheckShipping(data.ShippingOption);
-                //Tax = tax,
-                //TotalCost = total,
-                var OrderNumber = _orderService.GenerateOrderNumberAsync().Result;
-                var CustomerName = _customerService.GetCustomerNameByIdAsync(customerId).Result.FirstName;
-            
-
-
+            for (int i = 0; i < cartList.Count; i++)
+            {
+                var newOrderLine = _orderService.CreateOrderLinesAsync(new OrderLine
+                {
+                    ProductId = cartList[i].Product.Id,
+                    Quantity = cartList[i].Quantity,
+                    UnitCost = cartList[i].Product.Price,
+                    Subtotal = total,
+                    OrderId = orderId
+                });
+            }
             return View("Order");
         }
-
-
 
         public void SaveToSession(List<CartItem> listOfCarts)
         {
             HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(listOfCarts));
         }
-
         public List<CartItem> LoadSession()
         {
             var strList = HttpContext.Session.GetString(strCart);
             var cartList = JsonConvert.DeserializeObject<List<CartItem>>(strList);
             return cartList;
         }
-
-        public EPayment CheckPayment(string payment)
-        {
-            switch (payment)
-            {
-                case "Klarna":
-                    return EPayment.Klarna;
-                case "Credit Card":
-                    return EPayment.CreditCard;
-                case "PayPal":
-                    return EPayment.PayPal;
-                case "Invoice":
-                    return EPayment.Invoice;
-                default:
-                    break;
-            }
-
-            return EPayment.Invoice;
-        }
-
-        public Shipping CheckShipping(string shippingOption)
-        {
-            switch (shippingOption)
-            {
-                case "UPS":
-                    return  _shippingService.GetShippingByIdAsync(1).Result;
-                case "Postnord":
-                    return  _shippingService.GetShippingByIdAsync(2).Result;
-                case "Schenker":
-                    return  _shippingService.GetShippingByIdAsync(3).Result;
-            }
-
-            return null;
-        }
-
-
         public class OrderData
         {
             public string Id { get; set; }
             public string PaymentOption { get; set; }
             public string ShippingOption { get; set; }
         }
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ManicOceanic.DATA.Data;
 using ManicOceanic.DOMAIN.Entities.Sales;
@@ -36,7 +37,10 @@ namespace ManicOceanic.DATA.Data.Repositories
         {
             moContext.Orders.Add(order);
         }
-
+        public void CreateOrderLine(OrderLine orderLine)
+        {
+            moContext.OrderLines.Add(orderLine);
+        }
         public void DeleteOrder(Order order)
         {
             moContext.Orders.Remove(order);
@@ -55,18 +59,35 @@ namespace ManicOceanic.DATA.Data.Repositories
         public async Task<int> GenerateOrderNumberAsync()
         {
             var number = 101;
-            var orderNbr = moContext.Orders.Max(c => c.OrderNumber);
+            
 
-            if (orderNbr==0)
+            if (moContext.Orders.Count()==0)
             {
                 return number;
             }
             else
             {
-                 orderNbr += 1;
-                 return orderNbr;
+                var orderNbr = moContext.Orders.Max(c => c.OrderNumber)+1;
+                return orderNbr;
             }
         }
+        public EPayment GetPaymentMethod(string paymentOption)
+        {
+            switch (paymentOption)
+            {
+                case "Klarna":
+                    return EPayment.Klarna;
+                case "Credit Card":
+                    return EPayment.CreditCard;
+                case "PayPal":
+                    return EPayment.PayPal;
+                case "Invoice":
+                    return EPayment.Invoice;
+                default:
+                    return EPayment.Invoice;
+            }
+        }
+        
     }
   }
 }

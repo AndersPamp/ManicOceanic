@@ -11,5 +11,8 @@ namespace ManicOceanic.DOMAIN.Services.Interfaces
 
         Task<Order> UpdateOrderAsync(Order order);
         Task<int> GenerateOrderNumberAsync();
+        EPayment GetPaymentMethod(string paymentOption);
+
+        Task<OrderLine> CreateOrderLinesAsync(OrderLine orderLine);
     }
 }
