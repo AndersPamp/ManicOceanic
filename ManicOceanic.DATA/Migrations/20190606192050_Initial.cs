@@ -77,7 +77,8 @@ namespace ManicOceanic.DATA.Migrations
                     StreetAddress = table.Column<string>(nullable: true),
                     ZipCode = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
-                    CustomerNumber = table.Column<int>(nullable: false)
+                    CustomerNumber = table.Column<long>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

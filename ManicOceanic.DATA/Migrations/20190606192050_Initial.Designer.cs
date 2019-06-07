@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ManicOceanic.DATA.Migrations
 {
     [DbContext(typeof(MOContext))]
-    [Migration("20190520093803_AddUniqueCustomerNumber")]
-    partial class AddUniqueCustomerNumber
+    [Migration("20190606192050_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -370,15 +370,15 @@ namespace ManicOceanic.DATA.Migrations
 
             modelBuilder.Entity("ManicOceanic.DOMAIN.Entities.Products.Category", b =>
                 {
-                    b.HasOne("ManicOceanic.DOMAIN.Entities.Products.Category")
-                        .WithMany("Categories")
+                    b.HasOne("ManicOceanic.DOMAIN.Entities.Products.Category", "Parent")
+                        .WithMany()
                         .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("ManicOceanic.DOMAIN.Entities.Products.Product", b =>
                 {
                     b.HasOne("ManicOceanic.DOMAIN.Entities.Products.Category", "Category")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
