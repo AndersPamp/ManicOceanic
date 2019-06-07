@@ -63,7 +63,7 @@ namespace ManicOceanic.WEB.Controllers
             var product = mapper.Map<ProductDto, Product>(productDto);
             var result = await productService.CreateProductAsync(product);
 
-            return View();
+            return Redirect("/Admin/ProductList");
         }
 
         public async Task<IActionResult> EditProduct(int id)
@@ -96,7 +96,7 @@ namespace ManicOceanic.WEB.Controllers
 
             ViewData["CategoryId"] = new SelectList(await categoryService.ListCategoriesAsync(), "Id", "Name", product.CategoryId);
 
-            return View(product);
+            return Redirect("/Admin/ProductList");
         }
 
 
@@ -136,7 +136,7 @@ namespace ManicOceanic.WEB.Controllers
 
             var category = mapper.Map<CategoryDto, Category>(categoryDto);
             var result = await categoryService.CreateCategoryAsync(category);
-            //return View();
+           
             return Redirect("/Admin/Category");
         }
 
