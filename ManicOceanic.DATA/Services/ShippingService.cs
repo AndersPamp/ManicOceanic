@@ -18,9 +18,14 @@ namespace ManicOceanic.DATA.Services
             this.shippingRepository = shippingRepository;
             this.unitOfWork = unitOfWork;
         }
-        public async Task<Shipping> GetShippingByIdAsync (int shippingId)
+        public int GetShippingPrice(int shippingId)
         {
-            return await shippingRepository.GetShippingByIdAsync(shippingId);
+            return shippingRepository.GetShippingPrice(shippingId);
+        }
+
+        public int GetShippingId(string shippingOption)
+        {
+            return shippingRepository.GetShippingId(shippingOption);
         }
     }
 }

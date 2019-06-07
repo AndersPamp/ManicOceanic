@@ -5,6 +5,7 @@ namespace ManicOceanic.DOMAIN.Services.Interfaces
 {
     public interface IShippingService
     {
-        Task<Shipping> GetShippingByIdAsync(int shippingId);
+        int GetShippingPrice(int shippingId);
+        int GetShippingId(string shippingOption);
     }
 }

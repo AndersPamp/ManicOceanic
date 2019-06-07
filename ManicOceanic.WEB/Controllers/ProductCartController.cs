@@ -53,11 +53,11 @@ namespace ManicOceanic.WEB.Controllers
                 
                 if (newProduct.Stock>0)
                 {
-                    List<CartItem> IsCart = new List<CartItem>
+                    List<CartItem> isCart = new List<CartItem>
                     {
                         new CartItem(newProduct,1)
                     };
-                    HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(IsCart));
+                    HttpContext.Session.SetString(strCart, JsonConvert.SerializeObject(isCart));
                 }
             }
             else

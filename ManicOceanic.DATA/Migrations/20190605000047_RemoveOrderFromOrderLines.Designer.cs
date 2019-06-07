@@ -4,14 +4,16 @@ using ManicOceanic.DATA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ManicOceanic.DATA.Migrations
 {
     [DbContext(typeof(MOContext))]
-    partial class MOContextModelSnapshot : ModelSnapshot
+    [Migration("20190605000047_RemoveOrderFromOrderLines")]
+    partial class RemoveOrderFromOrderLines
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,8 +228,6 @@ namespace ManicOceanic.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid?>("OrderId");
-
                     b.Property<Guid>("ProductId");
 
                     b.Property<int>("Quantity");
@@ -237,8 +237,6 @@ namespace ManicOceanic.DATA.Migrations
                     b.Property<decimal>("UnitCost");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderLines");
                 });
@@ -389,13 +387,6 @@ namespace ManicOceanic.DATA.Migrations
                         .WithMany()
                         .HasForeignKey("ShippingId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ManicOceanic.DOMAIN.Entities.Sales.OrderLine", b =>
-                {
-                    b.HasOne("ManicOceanic.DOMAIN.Entities.Sales.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

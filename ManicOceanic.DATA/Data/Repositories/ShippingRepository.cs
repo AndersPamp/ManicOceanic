@@ -14,11 +14,35 @@ namespace ManicOceanic.DATA.Data.Repositories
         {
             this._moContext = moContext;
         }
-        public async Task<Shipping> GetShippingByIdAsync(int shippingId)
+
+        public int GetShippingPrice(int shippingId)
         {
-            var shippingList = await _moContext.Shippings.ToListAsync();
-            var shipping =  shippingList.FirstOrDefault(x => x.Id == shippingId);
-            return  shipping;
+            switch (shippingId)
+            {
+                case 3:
+                    return  145;
+                case 4:
+                    return 49;
+                case 5:
+                    return 169;
+                default:
+                    return 0;
+            }
+        }
+
+        public int GetShippingId(string shippingOption)
+        {
+            switch (shippingOption)
+            {
+                case "UPS":
+                    return 3;
+                case "Postnord":
+                    return 4;
+                case "Schenker":
+                    return 5;
+                default:
+                    return 4;
+            }
         }
     }
 }
