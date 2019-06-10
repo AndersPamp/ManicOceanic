@@ -53,6 +53,7 @@ namespace ManicOceanic.WEB.Controllers
                 Tax = tax,
                 TotalCost = total + _shippingService.GetShippingPrice(shippingId)
              });
+
             var orderId = newOrder.Result.Id;
 
             for (int i = 0; i < cartList.Count; i++)
