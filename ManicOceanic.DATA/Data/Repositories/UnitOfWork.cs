@@ -4,18 +4,18 @@ using ManicOceanic.DOMAIN.Repositories.Interfaces;
 
 namespace ManicOceanic.DATA.Data.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+  public class UnitOfWork : IUnitOfWork
+  {
+    private readonly MOContext moContext;
+
+    public UnitOfWork(MOContext moContext)
     {
-        private readonly MOContext moContext;
-
-        public UnitOfWork(MOContext moContext)
-        {
-            this.moContext = moContext;
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await moContext.SaveChangesAsync();
-        }
+      this.moContext = moContext;
     }
+
+    public async Task SaveChangesAsync()
+    {
+      await moContext.SaveChangesAsync();
+    }
+  }
 }
