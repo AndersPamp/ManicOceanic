@@ -26,6 +26,9 @@ namespace ManicOceanic.DATA.Data.Repositories
         public void CreateOrderLine(OrderLine orderLine)
         {
             moContext.OrderLines.Add(orderLine);
+            var item = moContext.Products.Find(orderLine.ProductId);
+            item.Stock=item.Stock - orderLine.Quantity;
+            
             try
             {
                 moContext.SaveChanges();
@@ -84,7 +87,7 @@ namespace ManicOceanic.DATA.Data.Repositories
         }
         public async Task<IEnumerable<Order>> ListOrderAsync(Guid userId)
         {
-            return await moContext.Orders.ToListAsync();
+            return await moContext.Orders.Where(x=>x.CustomerId==userId).ToListAsync();
         }
 
         public async Task<IEnumerable<OrderLine>> ListOrderLinesAsync(Guid orderId)
