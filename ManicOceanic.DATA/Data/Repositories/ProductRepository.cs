@@ -11,20 +11,20 @@ namespace ManicOceanic.DATA.Data.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly MOContext moContext;
-
-        public ProductRepository(MOContext moContext)
+        
+         public ProductRepository(MOContext moContext)
         {
             this.moContext = moContext;
         }
 
-        public async Task<IEnumerable<Product>> ListProductsAsync()
-        {
-            return await moContext.Products.Include(x => x.Category).ToListAsync();
-        }
-
         public async Task<Product> GetProductByProductNumberAsync(int productNumber)
         {
-            return await moContext.Products.FirstOrDefaultAsync(p => p.ProductNumber == productNumber);
+          return await moContext.Products.FirstOrDefaultAsync(p => p.ProductNumber == productNumber);
+        }
+        
+        public async Task<IEnumerable<Product>> ListProductsAsync()
+        {
+          return await moContext.Products.OrderBy(p => p.CategoryId).ThenBy(p => p.Name).Include(x => x.Category).ToListAsync();
         }
 
         public void DeleteProduct(Product product)
@@ -68,6 +68,7 @@ namespace ManicOceanic.DATA.Data.Repositories
             var product = await moContext.Products.FirstOrDefaultAsync(p => p.Id == id);
             return product;
         }
+        
         public async Task<IEnumerable<Product>> GetProductBySearchAsync(string searchWord)
         {
             return await moContext.Products.Where(x => x.Name.Contains(searchWord) || searchWord == null)
