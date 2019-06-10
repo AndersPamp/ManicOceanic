@@ -24,7 +24,7 @@ namespace ManicOceanic.WEB.Controllers
             _customerService = customerService;
         }
 
-        public IActionResult Order()
+        public IActionResult Order(string userId)
         {
             return View("Order");
         }

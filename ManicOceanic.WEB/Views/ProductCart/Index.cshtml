@@ -122,10 +122,9 @@
             var userId = IdentityExtensions.GetUserId(User.Identity);
             <div hidden="hide" id="userId">@userId</div>
 
-            <div class="btn btn-success pull-right">
-                @*@Html.ActionLink("Proceed to payment", "CreateOrder", "Order", new { id = userId },
-                    new { onclick = "return confirm ('Are you sure you want to create an order ?')" })*@
-                <button class="proceed" onclick="CreateOrder()">Proceed to payment</button>
+            <div class="btn btn-success pull-right" onclick="CreateOrder()">
+                @Html.ActionLink("Proceed to payment", "Order", "Order", new { id = userId },
+                    new { onclick = "return confirm ('Are you sure you want to create an order ?')" })
             </div>
         }else if (SignInManager.IsSignedIn(User) && Model == null)
         {
