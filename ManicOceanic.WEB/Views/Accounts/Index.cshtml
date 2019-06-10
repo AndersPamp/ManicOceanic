@@ -6,47 +6,43 @@
 
 <h1>Accounts</h1>
 
-<p>
-  @*<a asp-controller="Accounts" asp-action="Details" >Roles</a>*@
-</p>
 <table class="table">
-  <thead>
-      <tr>
-          <th>@Html.DisplayNameFor(model => model.customer.Email)</th>
-          <th>@Html.DisplayNameFor(model => model.customer.CustomerNumber)</th>
-          <th>@Html.DisplayNameFor(model => model.customer.SocialSecurityNumber)</th>
-          <th>@Html.DisplayNameFor(model => model.customer.Created)</th>
-          <th>Roles</th>
-      </tr>
-  </thead>
-  <tbody>
+    <thead>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.customer.Email)</th>
+        <th>@Html.DisplayNameFor(model => model.customer.CustomerNumber)</th>
+        <th>@Html.DisplayNameFor(model => model.customer.SocialSecurityNumber)</th>
+        <th>@Html.DisplayNameFor(model => model.customer.Created)</th>
+        <th>Roles</th>
+    </tr>
+    </thead>
+    <tbody>
     @foreach (var item in Model)
     {
-      <tr>
-          <td>
-              @Html.DisplayFor(modelItem => item.customer.Email)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.customer.CustomerNumber)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.customer.SocialSecurityNumber)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.customer.Created)
-          </td>
-        <td>
-          @foreach (var role in item.roles)
-          {
-            @Html.DisplayFor(modelItem => role)
-          }
-        </td>
-        <td>
-          @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-        </td>
-      </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.customer.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customer.CustomerNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customer.SocialSecurityNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customer.Created)
+            </td>
+            <td>
+                @foreach (var role in item.roles)
+                {
+                    @Html.DisplayFor(modelItem => role)
+                }
+            </td>
+        </tr>
     }
-  </tbody>
+    </tbody>
 </table>
+
+<div>
+    <a asp-controller="Admin" asp-action="Index">Back to manage page</a>
+</div>
