@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ManicOceanic.WEB.Models
 {
-    public class Cart
+    public class CartItem
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }
 
-        public Cart(Product product, int quantity)
+        public CartItem(Product product, int quantity)
         {
             Product = product;
             Quantity = quantity;

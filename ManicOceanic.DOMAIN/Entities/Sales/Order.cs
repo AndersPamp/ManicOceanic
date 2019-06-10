@@ -14,5 +14,6 @@ namespace ManicOceanic.DOMAIN.Entities.Sales
     public int ShippingId { get; set; }
     public decimal Tax { get; set; }
     public decimal TotalCost { get; set; }
-    }
+  }
+
 }

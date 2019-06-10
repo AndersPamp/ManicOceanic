@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using ManicOceanic.DATA.Data;
 using ManicOceanic.DOMAIN.Entities;
 using ManicOceanic.DOMAIN.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -21,17 +23,22 @@ namespace ManicOceanic.DATA.Data.Repositories
 
     public void UpdateCustomerProfile(Customer customer)
     {
-      moContext.Customers.Update(customer);
+        moContext.Customers.Update(customer);
     }
 
     public void DeleteCustomer(Customer customer)
     {
-      moContext.Customers.Remove(customer);
+        moContext.Customers.Remove(customer);
     }
 
     public async Task<Customer> GetCustomerBySocialSecurityNumber(string socialSecurityNumber)
     {
-      return await moContext.Customers.FirstOrDefaultAsync(s => s.SocialSecurityNumber == socialSecurityNumber);
+        return await moContext.Customers.FirstOrDefaultAsync(s => s.SocialSecurityNumber == socialSecurityNumber);
+    }
+
+    public async Task<Customer> GetCustomerNameByIdAsync(string customerId)
+    {
+        return await moContext.Users.FirstOrDefaultAsync(x => x.Id == customerId);
     }
   }
 }
