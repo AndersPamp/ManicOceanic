@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ManicOceanic.DOMAIN.Entities.Sales;
 using ManicOceanic.DOMAIN.Repositories.Interfaces;
 using ManicOceanic.DOMAIN.Services.Interfaces;
@@ -48,12 +50,24 @@ namespace ManicOceanic.DOMAIN.Services
             return orderRepository.GetPaymentMethod(paymentOption);
         }
 
-        public async Task<OrderLine> CreateOrderLinesAsync(OrderLine orderLine)
+        public Task<OrderLine> CreateOrderLines(OrderLine orderLine)
         {
             orderRepository.CreateOrderLine(orderLine);
-            await unitOfWork.SaveChangesAsync();
-            return orderLine;
+           
+            return Task.FromResult(orderLine);
+        }
+        public async Task<IEnumerable<Order>> ListOrderAsync(Guid userId)
+        {
+            return await orderRepository.ListOrderAsync(userId);
+        }
+        public async Task<IEnumerable<OrderLine>> ListOrderLinesAsync(Guid orderId)
+        {
+            return await orderRepository.ListOrderLinesAsync(orderId);
+        }
 
+        public async Task<IEnumerable<Order>> ListOrdersAdmin()
+        {
+            return await orderRepository.ListOrdersAdmin();
         }
     }
 }

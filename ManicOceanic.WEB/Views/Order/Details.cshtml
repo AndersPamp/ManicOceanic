@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ManicOceanic.DOMAIN.Entities.Sales.OrderLine>
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h1>Order details</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Product name
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var cost = item.Quantity * item.UnitCost;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @cost
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

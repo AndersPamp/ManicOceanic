@@ -6,12 +6,12 @@
 <h1>Aquarium</h1>
 
 <div class="container">
-  
+
     <div class="row">
         @foreach (var product in Model)
         {
-        <div class="myProductArea">
-           
+            <div class="myProductArea">
+
                 <div class="myProductImg">
                     <a asp-controller="Product" asp-action="ShowDetail" asp-route-productNumber="@product.ProductNumber"><img src="@product.ImageUrl" class="myImg" /></a>
                 </div>
@@ -24,19 +24,19 @@
                         @Html.ActionLink("Add to cart", "OrderNow", "ProductCart", new { id = product.Id }, null)
                     </div>
                 </div>
-           
-        </div>
+
+            </div>
         }
-       
+
     </div>
- 
+
 </div>
 
 
 @section Scripts
 {
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $(".btn-cart").each(function () {
                 var stock = $(this).data("productCount");
                 if (stock == 0) {

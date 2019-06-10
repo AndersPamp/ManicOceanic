@@ -24,9 +24,15 @@ namespace ManicOceanic.WEB.Controllers
             _customerService = customerService;
         }
 
-        public IActionResult Order(string userId)
+        public IActionResult Order(string id)
         {
-            return View("Order");
+            if (id == null)
+            {
+                return Redirect("/ProductCart/index");
+            }
+            var listOfOrders = _orderService.ListOrderAsync(Guid.Parse(id)).Result;
+            
+            return View("Order", listOfOrders);
         }
 
         [HttpPost]
@@ -58,7 +64,7 @@ namespace ManicOceanic.WEB.Controllers
 
             for (int i = 0; i < cartList.Count; i++)
             {
-                var newOrderLine = _orderService.CreateOrderLinesAsync(new OrderLine
+                var newOrderLine = _orderService.CreateOrderLines(new OrderLine
                 {
                     ProductId = cartList[i].Product.Id,
                     Quantity = cartList[i].Quantity,
@@ -67,7 +73,33 @@ namespace ManicOceanic.WEB.Controllers
                     OrderId = orderId
                 });
             }
+
+            //HttpContext.Session.Remove(strCart);
+            //HttpContext.Session.Set(strCart,null);
             return View("Order");
+        }
+
+        public IActionResult ListMyOrders(string userId)
+        {
+            if (userId == null)
+            {
+                return Redirect("/ProductCart/index");
+            }
+            var listOfOrders = _orderService.ListOrderAsync(Guid.Parse(userId)).Result;
+
+            return View("Order", listOfOrders);
+        }
+
+        public IActionResult ListOrderLines(Guid id)
+        {
+            if (id==null)
+            {
+                return Redirect("/ProductCart/index");
+            }
+
+            var listOfOrderLines = _orderService.ListOrderLinesAsync(id).Result;
+
+            return View("Details",listOfOrderLines);
         }
 
         public void SaveToSession(List<CartItem> listOfCarts)
