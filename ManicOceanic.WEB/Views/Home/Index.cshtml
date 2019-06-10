@@ -63,12 +63,10 @@
                 <p class="card-text">Manic Oceanic can offer both saltwater fish and freshwater fish</p>
 
             </div>
-            
-                <a asp-area="" asp-controller="Category" asp-action="Index" asp-route-id="1">
-                    <img class="card-img-bottom"
-                         src="@Model.Fish.ImageUrl" alt="@Model.Fish.Name">
-                </a>
-            
+            <a asp-area="" asp-controller="Category" asp-action="Index">
+                <img class="card-img-bottom"
+                     src="@Model.Fish.ImageUrl" alt="@Model.Fish.Name">
+            </a>
         </div>
 
 
@@ -80,7 +78,7 @@
                 <p class="card-text">We have food for all types of fish</p>
 
             </div>
-            <a asp-area="" asp-controller="Product" asp-action="FishFood" asp-route-id="2">
+            <a asp-area="" asp-controller="Product" asp-action="FishFood">
                 <img class="card-img-bottom" src="@Model.FishFood.ImageUrl"
                      alt="@Model.FishFood.Name" />
             </a>
@@ -94,7 +92,7 @@
                 <p class="card-text">A small bowl or a bigger one? Manic Oceanic can offer whatever you want</p>
 
             </div>
-            <a asp-area="" asp-controller="Product" asp-action="Aquarium" asp-route-id="3">
+            <a asp-area="" asp-controller="Product" asp-action="Aquarium">
                 <img class="card-img-bottom"
                      src="@Model.Aquarium.ImageUrl" alt="@Model.Aquarium.Name" />
             </a>
