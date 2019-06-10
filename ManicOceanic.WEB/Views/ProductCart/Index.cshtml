@@ -116,15 +116,15 @@
     </table>
     <div class="buttons">
         <a class="btn btn-primary pull-right" href='javascript:history.go(-1)'>Continue shopping</a>
-        @*<a class="btn btn-primary pull-right" asp-action="Index" asp-controller="Home" role="button">Continue shopping</a>*@
+
         @if (SignInManager.IsSignedIn(User) && Model != null)
         {
             var userId = IdentityExtensions.GetUserId(User.Identity);
             <div hidden="hide" id="userId">@userId</div>
 
             <div class="btn btn-success pull-right" onclick="CreateOrder()">
-                @Html.ActionLink("Create order", "Order", "Order", new { id = userId },
-                    new { onclick = "return confirm ('Are you sure you want to create an order ?')" })
+                @Html.ActionLink("Create order", "Order", "Order", new { id = @userId },
+                    new { onclick = "return confirm ('Are you sure you want to create an order ?')",style="text-decoration:none;color:white"})
             </div>
         }
         else if (SignInManager.IsSignedIn(User) && Model == null)

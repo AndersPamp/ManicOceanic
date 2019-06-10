@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ManicOceanic.DOMAIN.Entities.Sales;
 
 namespace ManicOceanic.DOMAIN.Services.Interfaces
@@ -13,6 +15,9 @@ namespace ManicOceanic.DOMAIN.Services.Interfaces
         Task<int> GenerateOrderNumberAsync();
         EPayment GetPaymentMethod(string paymentOption);
 
-        Task<OrderLine> CreateOrderLinesAsync(OrderLine orderLine);
+        Task<OrderLine> CreateOrderLines(OrderLine orderLine);
+        Task<IEnumerable<Order>> ListOrderAsync(Guid userId);
+        Task<IEnumerable<OrderLine>> ListOrderLinesAsync(Guid orderId);
+        Task<IEnumerable<Order>> ListOrdersAdmin();
     }
 }

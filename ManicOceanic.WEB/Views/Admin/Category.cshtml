@@ -45,7 +45,7 @@
 
                 @Html.ActionLink("Delete", "CategoryDelete", new { id = item.Id }, new
                 {
-                    onclick = "return confirm('Are sure wants to delete: " + @item.Name +
+                    onclick = "return confirm('Are you sure you want to delete: " + @item.Name +
                               " with category number: " + @item.Id + "?');"
                 })
             </td>
