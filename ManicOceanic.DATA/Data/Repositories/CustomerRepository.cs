@@ -23,33 +23,22 @@ namespace ManicOceanic.DATA.Data.Repositories
 
     public void UpdateCustomerProfile(Customer customer)
     {
-      moContext.Customers.Update(customer);
+        moContext.Customers.Update(customer);
     }
 
     public void DeleteCustomer(Customer customer)
     {
-      moContext.Customers.Remove(customer);
+        moContext.Customers.Remove(customer);
     }
 
-        public void UpdateCustomerProfile(Customer customer)
-        {
-            moContext.Customers.Update(customer);
-        }
+    public async Task<Customer> GetCustomerBySocialSecurityNumber(string socialSecurityNumber)
+    {
+        return await moContext.Customers.FirstOrDefaultAsync(s => s.SocialSecurityNumber == socialSecurityNumber);
+    }
 
-        public void DeleteCustomer(Customer customer)
-        {
-            moContext.Customers.Remove(customer);
-        }
-
-        public async Task<Customer> GetCustomerBySocialSecurityNumber(string socialSecurityNumber)
-        {
-            return await moContext.Customers.FirstOrDefaultAsync(s => s.SocialSecurityNumber == socialSecurityNumber);
-        }
-
-        public async Task<Customer> GetCustomerNameByIdAsync(string customerId)
-        {
-            return await moContext.Users.FirstOrDefaultAsync(x => x.Id == customerId);
-        }
+    public async Task<Customer> GetCustomerNameByIdAsync(string customerId)
+    {
+        return await moContext.Users.FirstOrDefaultAsync(x => x.Id == customerId);
     }
   }
 }
