@@ -10,8 +10,8 @@ namespace ManicOceanic.DOMAIN.Entities.Sales
 
     //public Product Product { get; set; }
     public int Quantity { get; set; }
-    public Order Order { get; set; }
     public Guid OrderId { get; set; }
+    public Order Order { get; set; }
     public decimal UnitCost { get; set; }
     public decimal Subtotal { get; set; }
   }
