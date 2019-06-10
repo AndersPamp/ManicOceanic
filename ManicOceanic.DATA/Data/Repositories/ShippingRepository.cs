@@ -19,11 +19,11 @@ namespace ManicOceanic.DATA.Data.Repositories
         {
             switch (shippingId)
             {
-                case 3:
+                case 1:
                     return  145;
-                case 4:
+                case 2:
                     return 49;
-                case 5:
+                case 3:
                     return 169;
                 default:
                     return 0;
@@ -35,13 +35,13 @@ namespace ManicOceanic.DATA.Data.Repositories
             switch (shippingOption)
             {
                 case "UPS":
-                    return 3;
+                    return 1;
                 case "Postnord":
-                    return 4;
+                    return 2;
                 case "Schenker":
-                    return 5;
+                    return 3;
                 default:
-                    return 4;
+                    return 2;
             }
         }
     }
