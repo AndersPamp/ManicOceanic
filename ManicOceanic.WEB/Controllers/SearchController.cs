@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ManicOceanic.DATA.Data;
-using ManicOceanic.DOMAIN.Entities.Products;
 using ManicOceanic.DOMAIN.Services.Interfaces;
 using ManicOceanic.WEB.Models;
 using Microsoft.AspNetCore.Mvc;

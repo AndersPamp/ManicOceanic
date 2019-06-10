@@ -7,29 +7,26 @@ using ManicOceanic.WEB.Models;
 
 namespace ManicOceanic.WEB.Controllers
 {
-    public class HomeController : Controller
+  public class HomeController : Controller
   {
-      private readonly IProductService productService;
-      private readonly MOContext moContext;
-      
+    private readonly IProductService productService;
+    private readonly MOContext moContext;
 
-      public HomeController(IProductService productService, MOContext moContext)
-      {
-          this.productService = productService;
-          this.moContext = moContext;
-      }
+    public HomeController(IProductService productService, MOContext moContext)
+    {
+      this.productService = productService;
+      this.moContext = moContext;
+    }
 
     public async Task<IActionResult> Index()
     {
-        var viewModel = new HomeViewModel();
+      var viewModel = new HomeViewModel();
 
-            //viewModel.HeroProduct = await productService.GetRandomProductAsync();
-            viewModel.Fish = await productService.GetProductByCategoryIdAsync(1);
+      viewModel.Fish = await productService.GetProductByCategoryIdAsync(1);
+      viewModel.FishFood = await productService.GetProductByCategoryIdAsync(3);
+      viewModel.Aquarium = await productService.GetProductByCategoryIdAsync(4);
 
-            viewModel.FishFood = await productService.GetProductByCategoryIdAsync(3);
-            viewModel.Aquarium = await productService.GetProductByCategoryIdAsync(4);
-
-            return View(viewModel);
+      return View(viewModel);
     }
 
     public IActionResult Privacy()
