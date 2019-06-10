@@ -4,14 +4,16 @@ using ManicOceanic.DATA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ManicOceanic.DATA.Migrations
 {
     [DbContext(typeof(MOContext))]
-    partial class MOContextModelSnapshot : ModelSnapshot
+    [Migration("20190529111927_Add-TotalCost-To-Order")]
+    partial class AddTotalCostToOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,7 +207,7 @@ namespace ManicOceanic.DATA.Migrations
 
                     b.Property<int>("PaymentType");
 
-                    b.Property<int>("ShippingId");
+                    b.Property<int?>("ShippingId");
 
                     b.Property<decimal>("Tax");
 
@@ -226,7 +228,7 @@ namespace ManicOceanic.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid?>("OrderId");
+                    b.Property<int>("OrderId");
 
                     b.Property<Guid>("ProductId");
 
@@ -237,8 +239,6 @@ namespace ManicOceanic.DATA.Migrations
                     b.Property<decimal>("UnitCost");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderLines");
                 });
@@ -370,15 +370,15 @@ namespace ManicOceanic.DATA.Migrations
 
             modelBuilder.Entity("ManicOceanic.DOMAIN.Entities.Products.Category", b =>
                 {
-                    b.HasOne("ManicOceanic.DOMAIN.Entities.Products.Category", "Parent")
-                        .WithMany()
+                    b.HasOne("ManicOceanic.DOMAIN.Entities.Products.Category")
+                        .WithMany("Categories")
                         .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("ManicOceanic.DOMAIN.Entities.Products.Product", b =>
                 {
                     b.HasOne("ManicOceanic.DOMAIN.Entities.Products.Category", "Category")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -387,15 +387,7 @@ namespace ManicOceanic.DATA.Migrations
                 {
                     b.HasOne("ManicOceanic.DOMAIN.Entities.Sales.Shipping", "Shipping")
                         .WithMany()
-                        .HasForeignKey("ShippingId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ManicOceanic.DOMAIN.Entities.Sales.OrderLine", b =>
-                {
-                    b.HasOne("ManicOceanic.DOMAIN.Entities.Sales.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("ShippingId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

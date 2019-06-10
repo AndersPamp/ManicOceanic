@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ManicOceanic.DOMAIN.Entities;
 
 namespace ManicOceanic.DOMAIN.Repositories.Interfaces
@@ -9,5 +10,6 @@ namespace ManicOceanic.DOMAIN.Repositories.Interfaces
         void UpdateCustomerProfile(Customer customer);
         void DeleteCustomer(Customer customer);
         Task<Customer> GetCustomerBySocialSecurityNumber(string socialSecurityNumber);
+        Task<Customer> GetCustomerNameByIdAsync(string customerId);
     }
 }
