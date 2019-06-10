@@ -26,6 +26,10 @@ namespace ManicOceanic.DATA.Data.Repositories
     {
       return await moContext.Products.FirstOrDefaultAsync(p => p.ProductNumber == productNumber);
     }
+        public async Task<IEnumerable<Product>> ListProductsAsync()
+        {
+            return await moContext.Products.OrderBy(p => p.CategoryId).ThenBy(p => p.Name).Include(x => x.Category).ToListAsync();
+        }
 
     public void DeleteProduct(Product product)
     {

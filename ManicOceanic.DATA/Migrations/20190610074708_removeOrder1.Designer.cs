@@ -4,14 +4,16 @@ using ManicOceanic.DATA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ManicOceanic.DATA.Migrations
 {
     [DbContext(typeof(MOContext))]
-    partial class MOContextModelSnapshot : ModelSnapshot
+    [Migration("20190610074708_removeOrder1")]
+    partial class removeOrder1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,61 +192,6 @@ namespace ManicOceanic.DATA.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("ManicOceanic.DOMAIN.Entities.Sales.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("CustomerId");
-
-                    b.Property<string>("CustomerName");
-
-                    b.Property<DateTime>("OrderDate");
-
-                    b.Property<int>("OrderNumber");
-
-                    b.Property<int>("PaymentType");
-
-                    b.Property<int>("ShippingId");
-
-                    b.Property<decimal>("Tax");
-
-                    b.Property<decimal>("TotalCost");
-
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("OrderNumber");
-
-                    b.HasIndex("ShippingId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("ManicOceanic.DOMAIN.Entities.Sales.OrderLine", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<Guid>("OrderId");
-
-                    b.Property<Guid>("ProductId");
-
-                    b.Property<int>("Quantity");
-
-                    b.Property<decimal>("Subtotal");
-
-                    b.Property<decimal>("UnitCost");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderLines");
-                });
-
             modelBuilder.Entity("ManicOceanic.DOMAIN.Entities.Sales.Shipping", b =>
                 {
                     b.Property<int>("Id")
@@ -382,27 +329,6 @@ namespace ManicOceanic.DATA.Migrations
                     b.HasOne("ManicOceanic.DOMAIN.Entities.Products.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ManicOceanic.DOMAIN.Entities.Sales.Order", b =>
-                {
-                    b.HasOne("ManicOceanic.DOMAIN.Entities.Sales.Shipping", "Shipping")
-                        .WithMany()
-                        .HasForeignKey("ShippingId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ManicOceanic.DOMAIN.Entities.Sales.OrderLine", b =>
-                {
-                    b.HasOne("ManicOceanic.DOMAIN.Entities.Sales.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ManicOceanic.DOMAIN.Entities.Products.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
