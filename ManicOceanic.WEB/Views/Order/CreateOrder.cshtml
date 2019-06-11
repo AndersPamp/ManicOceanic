@@ -1,0 +1,46 @@
+﻿@model ManicOceanic.DOMAIN.Entities.Sales.Order;
+@{
+    ViewData["Title"] = "Order created";
+}
+
+<h1>Order created !</h1>
+
+@{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                Order number
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Payment type
+            </th>
+            <th>
+                Total cost
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(m=>m.OrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(m=>m.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(m=>m.PaymentType)
+            </td>
+            <td>
+                @Html.DisplayFor(m=>m.TotalCost)
+            </td>
+            <td>@Html.ActionLink("Details", "ListOrderLines", "Order", new {id = Model.Id})</td>
+        </tr>
+
+        </tbody>
+    </table>
+}

@@ -84,8 +84,15 @@
             <tr>
                 <th></th>
                 <th></th>
-                <th></th>
-                <th></th>
+                <th>Payment method: </th>
+                <th id="payment">
+                    <select id="payment1" name="payment1">
+                        <option value="Klarna">Klarna</option>
+                        <option value="Credit-Card">Credit Card</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Invoice">Invoice</option>
+                    </select>
+                </th>
                 <th>Shipping: </th>
                 <th id="shipping">
                     <select id="shipping1" name="shipping1">
@@ -100,15 +107,7 @@
             <tr>
                 <th></th>
                 <th></th>
-                <th>Payment method: </th>
-                <th id="payment">
-                    <select id="payment1" name="payment1">
-                        <option value="Klarna">Klarna</option>
-                        <option value="Credit-Card">Credit Card</option>
-                        <option value="PayPal">PayPal</option>
-                        <option value="Invoice">Invoice</option>
-                    </select>
-                </th>
+               
                 <th>To pay: </th>
                 <th id="to-pay" style="color: brown">@total Kr</th>
             </tr>
@@ -123,8 +122,9 @@
             <div hidden="hide" id="userId">@userId</div>
 
             <div class="btn btn-success pull-right" onclick="CreateOrder()">
-                @Html.ActionLink("Create order", "Order", "Order", new { id = @userId },
-                    new { onclick = "return confirm ('Are you sure you want to create an order ?')",style="text-decoration:none;color:white"})
+                @*@Html.ActionLink("Create order", "Order", "Order", new { id = @userId },
+                    new { onclick = "return confirm ('Are you sure you want to create an order ?')",style="text-decoration:none;color:white"})*@
+                Create order!
             </div>
         }
         else if (SignInManager.IsSignedIn(User) && Model == null)
@@ -202,7 +202,8 @@
                     alert('Error: ' + xhr.statusText);
                 },
                 success: function () {
-                    window.setTimeout(function () { location.reload() }, 5);
+                    //window.setTimeout(function () { location.reload() }, 5);
+                    window.location.href = "/Order/OrderCreated";
                 }
             });
         }

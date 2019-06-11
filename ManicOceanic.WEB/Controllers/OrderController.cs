@@ -30,9 +30,14 @@ namespace ManicOceanic.WEB.Controllers
             {
                 return Redirect("/ProductCart/index");
             }
-            var listOfOrders = _orderService.ListOrderAsync(Guid.Parse(id)).Result;
             
-            return View("Order", listOfOrders);
+            var listOfOrders = _orderService.ListOrderAsync(Guid.Parse(id)).Result;
+            if (listOfOrders != null)
+            {
+                return View("Order", listOfOrders);
+            }
+
+            return View("Order");
         }
 
         [HttpPost]
@@ -73,10 +78,15 @@ namespace ManicOceanic.WEB.Controllers
                     OrderId = orderId
                 });
             }
+            HttpContext.Session.Clear();
+            return View("CreateOrder",newOrder.Result);
+        }
 
-            //HttpContext.Session.Remove(strCart);
-            //HttpContext.Session.Set(strCart,null);
-            return View("Order");
+        public IActionResult OrderCreated()
+        {
+            var orderList = _orderService.ListOrdersAdmin();
+            var order = orderList.Result.Last();
+            return View("CreateOrder", order);
         }
 
         public IActionResult ListMyOrders(string userId)
